@@ -22,7 +22,7 @@ import model.menuButton;
 
 public class highscore {
 	private Text text;
-	private int i=0,j;
+	private int i=0,j,k=i;
 	private Scene highscoreScene;
 	private Stage highscoreStage;
 	private AnchorPane mainPane;
@@ -105,8 +105,8 @@ public class highscore {
 		Text text = new Text();
 		text.setText(name);
 		text.setX(210);
-		text.setY(230+i);
-		i+=35;
+		text.setY(230+k);
+		k+=35;
 		fontsetup(text);
 		mainPane.getChildren().addAll(text);
 	}
