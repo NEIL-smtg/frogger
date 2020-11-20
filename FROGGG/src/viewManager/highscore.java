@@ -30,7 +30,6 @@ public class highscore {
 	private static final int HEIGHT = 800;
 	
 	public highscore() {
-		
 		mainPane = new AnchorPane();
 		highscoreScene=new Scene(mainPane,WIDTH,HEIGHT);
 		highscoreStage = new Stage();

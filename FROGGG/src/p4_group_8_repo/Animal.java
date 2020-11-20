@@ -150,7 +150,7 @@ public class Animal extends Actor {
 		setX(300);
 		setY(679.8+movement);
 		carDeath = false;
-		waterDeath=false;
+		waterDeath=false;  //if error change to if cardeath , cardeath =false , same as waterdeath
 		carD = 0;
 		setImage(new Image("file:src/p4_group_8_repo/frog/froggerUp.png", imgSize, imgSize, true, true));
 		noMove = false;

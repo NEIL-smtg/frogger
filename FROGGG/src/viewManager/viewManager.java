@@ -71,9 +71,8 @@ public class viewManager {
 
 			@Override
 			public void handle(ActionEvent event) {
-				
-				GameView game = new GameView();
-				game.createNewGame(mainStage);
+				TakeUserName input = new TakeUserName();
+				input.inputScene();
 			}
 			
 		});
