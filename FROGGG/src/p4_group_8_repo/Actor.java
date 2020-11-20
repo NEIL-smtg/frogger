@@ -23,6 +23,7 @@ public abstract class Actor extends ImageView{
 
     public double getHeight() {
         return this.getBoundsInLocal().getHeight();
+
     }
 
     public <A extends Actor> java.util.List<A> getIntersectingObjects(java.lang.Class<A> cls){

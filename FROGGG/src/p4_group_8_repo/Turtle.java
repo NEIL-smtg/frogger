@@ -11,7 +11,7 @@ public class Turtle extends Actor{
 	boolean bool = true;
 	@Override
 	public void act(long now) {
-
+		
 				if (now/900000000  % 3 ==0) {
 					setImage(turtle2);
 					
@@ -32,9 +32,9 @@ public class Turtle extends Actor{
 			setX(600);
 	}
 	public Turtle(int xpos, int ypos, int s, int w, int h) {
-		turtle1 = new Image("file:src/p4_group_8_repo/TurtleAnimation1.png", w, h, true, true);
-		turtle2 = new Image("file:src/p4_group_8_repo/TurtleAnimation2.png", w, h, true, true);
-		turtle3 = new Image("file:src/p4_group_8_repo/TurtleAnimation3.png", w, h, true, true);
+		turtle1 = new Image("file:src/p4_group_8_repo/turtle/TurtleAnimation1.png", w, h, true, true);
+		turtle2 = new Image("file:src/p4_group_8_repo/turtle/TurtleAnimation2.png", w, h, true, true);
+		turtle3 = new Image("file:src/p4_group_8_repo/turtle/TurtleAnimation3.png", w, h, true, true);
 		setX(xpos);
 		setY(ypos);
 		speed = s;
