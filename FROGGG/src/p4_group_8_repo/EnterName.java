@@ -32,7 +32,7 @@ public class EnterName {
 	private AnchorPane mainPane;
 	private Scene mainScene;
 	private Stage nameInputStage;
-	private String NewName;
+	public static String NewName;
 	private TextField nameField;
 	
 	EnterName()
@@ -124,7 +124,6 @@ public class EnterName {
 			}	
 			if(i==0) 
 			{
-				addtoDatabase();
 				GameView game = new GameView();
 				game.createNewGame(nameInputStage);
 			}
@@ -136,17 +135,6 @@ public class EnterName {
 		
 	}
 	
-	
-	private void addtoDatabase() {
-		try(FileWriter fw = new FileWriter("src/viewManager/NameDatabase.txt", true);
-			    BufferedWriter bw = new BufferedWriter(fw);
-			    PrintWriter out = new PrintWriter(bw))
-				{
-				    out.print(NewName+"\n");
-				} catch (IOException e) {
-				   
-				}
-	   }
 
 	private void setAlert(String inputName) {
 		Alert alert = new Alert(AlertType.ERROR);

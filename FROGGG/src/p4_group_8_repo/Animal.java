@@ -146,7 +146,7 @@ public class Animal extends Actor {
 	}
 		
 	
-	public void Dmax() {
+	public void carDmax() {
 		setX(300);
 		setY(679.8+movement);
 		carDeath = false;
@@ -177,7 +177,7 @@ public class Animal extends Actor {
 			}
 			death(carD,"carDeath");	
 			if(carD==4) {
-				Dmax();
+				carDmax();
 			}
 		}
 		if (waterDeath) {
@@ -187,7 +187,7 @@ public class Animal extends Actor {
 			}
 			death(carD,"waterDeath");
 			if(carD==5) {
-				Dmax();
+				carDmax();
 			}
 		}
 		

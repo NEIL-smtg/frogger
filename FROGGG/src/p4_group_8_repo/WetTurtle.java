@@ -38,10 +38,10 @@ public class WetTurtle extends Actor{
 			setX(600);
 	}
 	public WetTurtle(int xpos, int ypos, int s, int w, int h) {
-		turtle1 = new Image("file:src/p4_group_8_repo/turtle/TurtleAnimation1.png", w, h, true, true);
-		turtle2 = new Image("file:src/p4_group_8_repo/turtle/TurtleAnimation2Wet.png", w, h, true, true);
-		turtle3 = new Image("file:src/p4_group_8_repo/turtle/TurtleAnimation3Wet.png", w, h, true, true);
-		turtle4 = new Image("file:src/p4_group_8_repo/turtle/TurtleAnimation4Wet.png", w, h, true, true);
+		turtle1 = new Image("file:src/p4_group_8_repo/turtlepic/TurtleAnimation1.png", w, h, true, true);
+		turtle2 = new Image("file:src/p4_group_8_repo/turtlepic/TurtleAnimation2Wet.png", w, h, true, true);
+		turtle3 = new Image("file:src/p4_group_8_repo/turtlepic/TurtleAnimation3Wet.png", w, h, true, true);
+		turtle4 = new Image("file:src/p4_group_8_repo/turtlepic/TurtleAnimation4Wet.png", w, h, true, true);
 		setX(xpos);
 		setY(ypos);
 		speed = s;

@@ -1,19 +1,21 @@
 package p4_group_8_repo;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Optional;
+
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
-public class GameView  {
+public class GameView{
 	private Scene gameScene;
 	private Stage gameStage;
 	AnimationTimer timer;
@@ -41,10 +43,22 @@ public class GameView  {
 
 			@Override
 			public void handle(ActionEvent event) {
-				background.stop();
-				background.stopMusic();
-				Menu.mainStage.show();
-				gameStage.close();
+				setAlert();
+			}
+
+			private void setAlert() {
+					Alert alert = new Alert(AlertType.CONFIRMATION);
+					alert.setTitle("CONFIRMATION");
+					alert.setHeaderText("EXIT GAME");
+					alert.setContentText("ARE YOU SURE? ALL PROGRESS WILL BE NOT BE SAVED.");
+					Optional<ButtonType> option = alert.showAndWait();
+					
+					if (option.get()==ButtonType.OK) {
+						background.stop();
+						background.stopMusic();
+						Menu.mainStage.show();
+						gameStage.close();
+					}
 			}
 			
 		});
@@ -60,19 +74,20 @@ public class GameView  {
 		
 	}
 	
-	private void game() {
+	private void game(){
 		
 		gameScene=new Scene(background,GAME_WIDTH,GAME_HEIGHT);
 		gameStage = new Stage();
 		gameStage.setScene(gameScene);
+		BackgroundImage back = new BackgroundImage("p4_group_8_repo/darkpurple.jpg");
+		background.add(back);
 		//Obstacle obstacle = new Obstacle("file:src/p4_group_8_repo/truck1Right.png", 25, 25, 3);
 		//Obstacle obstacle1 = new Obstacle("file:src/p4_group_8_repo/truck2Right.png", 100, 100,2 );
 		//Obstacle obstacle2 = new Obstacle("file:src/p4_group_8_repo/truck1Right.png",0,  150, 1);
 		
 		BackgroundImage froggerback = new BackgroundImage("file:src/p4_group_8_repo/Screen Shot 2017-05-29 at 10.02.14 PM.png");
 		background.add(froggerback);
-		BackgroundImage back = new BackgroundImage("p4_group_8_repo/darkpurple.jpg");
-		background.add(back);
+		
 		
 		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 0, 166, 0.75));
 		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 220, 166, 0.75));
@@ -151,6 +166,7 @@ public class GameView  {
 	    	}
 	    	if (animal.getStop()) {
 	    		System.out.print("STOPP:");
+	    		storeScore();
 	    		background.stopMusic();
 	    		stop();
 	    		background.stop();
@@ -159,8 +175,25 @@ public class GameView  {
 	    		alert.setHeaderText("Your High Score: "+animal.getPoints()+"!");
 	    		alert.setContentText("Highest Possible Score: 800");
 	    		alert.show();
+	    	
 	    	}
 	    }
+
+		private void storeScore() {
+			try(FileWriter fw = new FileWriter("src/viewManager/HighScoreDatabase.txt", true);
+		     BufferedWriter bw = new BufferedWriter(fw);
+		     PrintWriter out = new PrintWriter(bw))
+			{
+				out.print(animal.getPoints()+"\n");
+			} catch (IOException e) {}
+			
+			try(FileWriter fw = new FileWriter("src/viewManager/NameDatabase.txt", true);
+					BufferedWriter bw = new BufferedWriter(fw);
+					PrintWriter out = new PrintWriter(bw))
+					{
+					    out.print(EnterName.NewName+"\n");
+					} catch (IOException e) {}
+		}
 	};
 	}
 	
