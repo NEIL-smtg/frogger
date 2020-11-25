@@ -34,7 +34,7 @@ public class EnterName {
 	private Stage nameInputStage;
 	public static String NewName;
 	private TextField nameField;
-	
+
 	EnterName()
 	{
 		mainPane = new AnchorPane();
