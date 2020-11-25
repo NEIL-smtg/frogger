@@ -151,7 +151,7 @@ public class GameView{
 		background.start();
 		//primaryStage.setScene(scene);
 		//primaryStage.show();
-		start();  
+		start(); 
 	}
 
 
