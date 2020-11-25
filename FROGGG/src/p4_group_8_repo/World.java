@@ -93,6 +93,10 @@ public abstract class World extends Pane {
     public void add(Actor actor) {
         getChildren().add(actor);
     }
+    
+    public void addbutton(MenuButton button) {
+    	getChildren().add(button);
+    }
 
     public void remove(Actor actor) {
         getChildren().remove(actor);
