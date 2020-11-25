@@ -1,11 +1,7 @@
 package p4_group_8_repo;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Scanner;
 
 import javafx.event.ActionEvent;
@@ -62,10 +58,10 @@ public class EnterName {
 			}
 		});
 		
-		MenuButton enter = new MenuButton("START");
-		enter.setLayoutX(240);
+		MenuButton enter = new MenuButton("CHOOSE LEVELS");
+		enter.setLayoutX(200);
 		enter.setLayoutY(280);
-		enter.setPrefWidth(150);
+		enter.setPrefWidth(250);
 		enter.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -124,8 +120,8 @@ public class EnterName {
 			}	
 			if(i==0) 
 			{
-				GameView game = new GameView();
-				game.createNewGame(nameInputStage);
+				ChooseLevels choose = new ChooseLevels();
+				choose.NewScene(nameInputStage);
 			}
 		} catch (FileNotFoundException e) 
 		{
