@@ -21,10 +21,8 @@ public class GameView{
 	AnimationTimer timer;
 	MyStage background;
 	Animal animal;
-	
 	private static final int GAME_WIDTH = 600;
 	private static final int GAME_HEIGHT = 800;
-	
 	private Stage menuStage;
 	
 	public GameView() {
