@@ -1,6 +1,8 @@
 package p4_group_8_repo;
 
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +15,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class GameView{
@@ -24,16 +29,48 @@ public class GameView{
 	private static final int GAME_WIDTH = 600;
 	private static final int GAME_HEIGHT = 800;
 	private Stage menuStage;
+	private int level;
 	
-	public GameView() {
+	public GameView(int level) {
+		SpeedDecider(level);
 		background = new MyStage();
 		game();
+		showLevelText(level);
 		exitGame();
+	}
+
+	private void showLevelText(int level) {
+		Text text = new Text();
+		text.setText("LEVEL "+level);
+		text.setX(30);
+		text.setY(60);
+		fontsetup(text);
+		background.addText(text);
+	}
+	
+	private void fontsetup(Text text) {
+		try {
+			text.setFont(Font.loadFont("file:src/model/ARCADECLASSIC.TTF", 35));
+			text.setFill(Color.RED);
+			
+		} catch (Exception e) {
+			text.setFont(Font.font("Verdana",23));
+		}
+	}
+
+	private void SpeedDecider(int level) {
+		if (level==1) {
+			this.level=level;
+		}
+		else {
+			this.level=1+level/4;
+		}
+		
 	}
 
 	private void exitGame() {
 		MenuButton exit = new MenuButton("EXIT");
-		exit.setLayoutX(10);
+		exit.setLayoutX(450);
 		exit.setLayoutY(10);
 		exit.setPrefHeight(50);
 		exit.setPrefWidth(120);
@@ -73,7 +110,6 @@ public class GameView{
 	}
 	
 	private void game(){
-		
 		gameScene=new Scene(background,GAME_WIDTH,GAME_HEIGHT);
 		gameStage = new Stage();
 		gameStage.setScene(gameScene);
@@ -87,24 +123,24 @@ public class GameView{
 		background.add(froggerback);
 		
 		
-		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 0, 166, 0.75));
-		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 220, 166, 0.75));
-		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 440, 166, 0.75));
+		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 0, 166, 0.75*level));
+		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 220, 166, 0.75*level));
+		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 440, 166, 0.75*level));
 		//background.add(new Log("file:src/p4_group_8_repo/log3.png", 150, 0, 166, 0.75));
-		background.add(new Log("file:src/p4_group_8_repo/log/logs.png", 300, 0, 276, -2));
-		background.add(new Log("file:src/p4_group_8_repo/log/logs.png", 300, 400, 276, -2));
+		background.add(new Log("file:src/p4_group_8_repo/log/logs.png", 300, 0, 276, -2*level));
+		background.add(new Log("file:src/p4_group_8_repo/log/logs.png", 300, 400, 276, -2*level));
 		//background.add(new Log("file:src/p4_group_8_repo/logs.png", 300, 800, 276, -2));
-		background.add(new Log("file:src/p4_group_8_repo//log/log3.png", 150, 50, 329, 0.75));
-		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 270, 329, 0.75));
-		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 490, 329, 0.75));
+		background.add(new Log("file:src/p4_group_8_repo//log/log3.png", 150, 50, 329, 0.75*level));
+		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 270, 329, 0.75*level));
+		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 490, 329, 0.75*level));
 		//background.add(new Log("file:src/p4_group_8_repo/log3.png", 150, 570, 329, 0.75));
 
-		background.add(new Turtle(500, 376, -1, 130, 130));
-		background.add(new Turtle(300, 376, -1, 130, 130));
-		background.add(new WetTurtle(700, 376, -1, 130, 130));
-		background.add(new WetTurtle(600, 217, -1, 130, 130));
-		background.add(new WetTurtle(400, 217, -1, 130, 130));
-		background.add(new WetTurtle(200, 217, -1, 130, 130));
+		background.add(new Turtle(500, 376, -1*level, 130, 130));
+		background.add(new Turtle(300, 376, -1*level, 130, 130));
+		background.add(new WetTurtle(700, 376, -1*level, 130, 130));
+		background.add(new WetTurtle(600, 217, -1*level, 130, 130));
+		background.add(new WetTurtle(400, 217, -1*level, 130, 130));
+		background.add(new WetTurtle(200, 217, -1*level, 130, 130));
 		//background.add(new Log("file:src/p4_group_8_repo/log2.png", 200, 100, 1));
 		//background.add(new Log("file:src/p4_group_8_repo/log2.png", 0, 100, 1));
 		//background.add(new Log("file:src/p4_group_8_repo/log2.png", 100, 120, -1));
@@ -131,17 +167,17 @@ public class GameView{
 		background.add(new End(141 + 141-13+141-13+141-13+3,96));
 		animal = new Animal("file:src/p4_group_8_repo/frog/froggerUp.png");
 		background.add(animal);
-		background.add(new Obstacle("file:src/p4_group_8_repo/truck/truck1"+"Right.png", 0, 649, 1, 120, 120));
-		background.add(new Obstacle("file:src/p4_group_8_repo/truck/truck1"+"Right.png", 300, 649, 1, 120, 120));
-		background.add(new Obstacle("file:src/p4_group_8_repo/truck/truck1"+"Right.png", 600, 649, 1, 120, 120));
+		background.add(new Obstacle("file:src/p4_group_8_repo/truck/truck1"+"Right.png", 0, 649, 1*level, 120, 120));
+		background.add(new Obstacle("file:src/p4_group_8_repo/truck/truck1"+"Right.png", 300, 649, 1*level, 120, 120));
+		background.add(new Obstacle("file:src/p4_group_8_repo/truck/truck1"+"Right.png", 600, 649, 1*level, 120, 120));
 		//background.add(new Obstacle("file:src/p4_group_8_repo/truck1"+"Right.png", 720, 649, 1, 120, 120));
-		background.add(new Obstacle("file:src/p4_group_8_repo/car/car1Left.png", 100, 597, -1, 50, 50));
-		background.add(new Obstacle("file:src/p4_group_8_repo/car/car1Left.png", 250, 597, -1, 50, 50));
-		background.add(new Obstacle("file:src/p4_group_8_repo/car/car1Left.png", 400, 597, -1, 50, 50));
-		background.add(new Obstacle("file:src/p4_group_8_repo/car/car1Left.png", 550, 597, -1, 50, 50));
-		background.add(new Obstacle("file:src/p4_group_8_repo/truck/truck2Right.png", 0, 540, 1, 200, 200));
-		background.add(new Obstacle("file:src/p4_group_8_repo/truck/truck2Right.png", 500, 540, 1, 200, 200));
-		background.add(new Obstacle("file:src/p4_group_8_repo/car/car1Left.png", 500, 490, -5, 50, 50));
+		background.add(new Obstacle("file:src/p4_group_8_repo/car/car1Left.png", 100, 597, -1*level, 50, 50));
+		background.add(new Obstacle("file:src/p4_group_8_repo/car/car1Left.png", 250, 597, -1*level, 50, 50));
+		background.add(new Obstacle("file:src/p4_group_8_repo/car/car1Left.png", 400, 597, -1*level, 50, 50));
+		background.add(new Obstacle("file:src/p4_group_8_repo/car/car1Left.png", 550, 597, -1*level, 50, 50));
+		background.add(new Obstacle("file:src/p4_group_8_repo/truck/truck2Right.png", 0, 540, 1*level, 200, 200));
+		background.add(new Obstacle("file:src/p4_group_8_repo/truck/truck2Right.png", 500, 540, 1*level, 200, 200));
+		background.add(new Obstacle("file:src/p4_group_8_repo/car/car1Left.png", 500, 490, -5*level, 50, 50));
 		background.add(new Digit(0, 30, 280, 25));
 		//background.add(obstacle);
 		//background.add(obstacle1);
@@ -151,8 +187,6 @@ public class GameView{
 		//primaryStage.show();
 		start(); 
 	}
-
-
 	
 
 	public void createTimer() {
@@ -173,7 +207,18 @@ public class GameView{
 	    		alert.setHeaderText("Your High Score: "+animal.getPoints()+"!");
 	    		alert.setContentText("Highest Possible Score: 800");
 	    		alert.show();
-	    	
+	    		
+	    		alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("CONTINUE");
+				alert.setHeaderText("CONGRATULATIONS !");
+				alert.setContentText("DO YOU WANT TO TRY NEXT LEVEL ?");
+				Optional<ButtonType> option = alert.showAndWait();
+				
+				if (option.get()==ButtonType.OK) {
+					level++;
+					game();
+				}
+	    		
 	    	}
 	    }
 
