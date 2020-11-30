@@ -4,7 +4,6 @@ import java.io.File;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 
 public class MyStage extends World{
 	MediaPlayer mediaPlayer;
@@ -39,5 +38,7 @@ public class MyStage extends World{
 	public void stopMusic() {
 		mediaPlayer.stop();
 	}
+
+	
 
 }
