@@ -1,8 +1,6 @@
 package p4_group_8_repo;
 
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -198,7 +196,7 @@ public class GameView{
 	    	}
 	    	if (animal.getStop()) {
 	    		System.out.print("STOPP:");
-	    		storeScore();
+	    		
 	    		background.stopMusic();
 	    		stop();
 	    		background.stop();
@@ -217,6 +215,9 @@ public class GameView{
 				if (option.get()==ButtonType.OK) {
 					level++;
 					game();
+				}
+				else {
+					storeScore();
 				}
 	    		
 	    	}
