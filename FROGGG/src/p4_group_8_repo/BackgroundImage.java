@@ -11,8 +11,16 @@ public class BackgroundImage extends Actor{
 	}
 	
 	public BackgroundImage(String imageLink) {
-		setImage(new Image(imageLink, 600, 800, false, true));
+		//setImage(new Image(imageLink, 600, 800, false, true));
+		setImage(new Image(imageLink));
+	}
+	/*public BackgroundImage() {
+		
 		
 	}
+	
+	public void BackgroundImage2(String imageLink) {
+		setImage(new Image(imageLink));
+	}*/
 
 }
