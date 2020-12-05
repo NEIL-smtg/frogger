@@ -111,8 +111,25 @@ public class GameView{
 		gameScene=new Scene(background,GAME_WIDTH,GAME_HEIGHT);
 		gameStage = new Stage();
 		gameStage.setScene(gameScene);
-		BackgroundImage back = new BackgroundImage("p4_group_8_repo/darkpurple.jpg");
-		background.add(back);
+		
+		BackgroundImage purpleborder1 = new BackgroundImage("p4_group_8_repo/purple border.jpg");
+		BackgroundImage purpleborder2 = new BackgroundImage("p4_group_8_repo/purple border.jpg");
+		BackgroundImage blackborder = new BackgroundImage("p4_group_8_repo/black border.jpg");
+		BackgroundImage darkblue = new BackgroundImage("p4_group_8_repo/deepblue.jpg");
+		darkblue.setLayoutX(0);
+		darkblue.setLayoutY(0);
+		purpleborder1.setLayoutX(0);
+		purpleborder1.setLayoutY(435);
+		purpleborder2.setLayoutX(0);
+		purpleborder2.setLayoutY(700);
+		blackborder.setLayoutX(0);
+		blackborder.setLayoutY(470);
+		
+		background.add(darkblue);
+		background.add(blackborder);
+		background.add(purpleborder1);
+		background.add(purpleborder2);
+		
 		//Obstacle obstacle = new Obstacle("file:src/p4_group_8_repo/truck1Right.png", 25, 25, 3);
 		//Obstacle obstacle1 = new Obstacle("file:src/p4_group_8_repo/truck2Right.png", 100, 100,2 );
 		//Obstacle obstacle2 = new Obstacle("file:src/p4_group_8_repo/truck1Right.png",0,  150, 1);
