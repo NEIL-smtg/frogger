@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
 
+
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,28 +14,53 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class GameView{
+public class GameView extends ImageView{
 	private Scene gameScene;
 	private Stage gameStage;
 	AnimationTimer timer;
 	MyStage background;
 	Animal animal;
+	Animal frog;
 	private static final int GAME_WIDTH = 600;
 	private static final int GAME_HEIGHT = 800;
 	private Stage menuStage;
 	private int level;
+		
 	
 	public GameView(int level) {
 		SpeedDecider(level);
 		background = new MyStage();
 		game();
+		//showlives();
 		showLevelText(level);
 		exitGame();
+	}
+
+	private void showlives() {
+		BackgroundImage img[] = new BackgroundImage[3];
+		int lives = animal.showlives();
+		System.out.println(lives);
+		int gap=0;
+		
+		
+		for (int i = 0; i <lives ; i++) {
+			img[i]=new BackgroundImage("file:src/p4_group_8_repo/frog/froggerUp.png");
+			img[i].setLayoutX(0+i*gap);
+			img[i].setLayoutY(750);
+			gap+=40;	
+		}
+		
+		background.add(img[0]);
+		background.add(img[1]);
+		background.add(img[2]);
+		background.add(img[3]);
+		background.add(img[4]);
 	}
 
 	private void showLevelText(int level) {
@@ -107,6 +133,46 @@ public class GameView{
 		
 	}
 	
+	private void backgroundsetup() {
+		BackgroundImage purpleborder1 = new BackgroundImage("p4_group_8_repo/purple border.jpg");
+		BackgroundImage purpleborder2 = new BackgroundImage("p4_group_8_repo/purple border.jpg");
+		BackgroundImage blackborder = new BackgroundImage("p4_group_8_repo/black border.jpg");
+		BackgroundImage darkblue = new BackgroundImage("p4_group_8_repo/deepblue.jpg");
+		darkblue.setLayoutX(0);
+		darkblue.setLayoutY(0);
+		purpleborder1.setLayoutX(0);
+		purpleborder1.setLayoutY(435);
+		purpleborder2.setLayoutX(0);
+		purpleborder2.setLayoutY(700);
+		blackborder.setLayoutX(0);
+		blackborder.setLayoutY(470);
+		
+		background.add(darkblue);
+		background.add(blackborder);
+		background.add(purpleborder1);
+		background.add(purpleborder2);
+	}
+	
+
+	private void game(){
+		gameScene=new Scene(background,GAME_WIDTH,GAME_HEIGHT);
+		gameStage = new Stage();
+		gameStage.setScene(gameScene);
+		backgroundsetup();
+		
+		frog = new Animal("file:src/p4_group_8_repo/frog/froggerUp.png");
+		background.add(frog);
+		
+		ObstacleSetup o = new ObstacleSetup(level);
+		Obstacle[] obs=o.getarr();
+		
+		for (int i = 0; i < 3 ; i++) {
+			background.add(obs[i]);
+		}
+		//background.add(o.getarr()[0][0]);
+		background.start();
+	}/*
+	
 	private void game(){
 		gameScene=new Scene(background,GAME_WIDTH,GAME_HEIGHT);
 		gameStage = new Stage();
@@ -130,6 +196,7 @@ public class GameView{
 		background.add(purpleborder1);
 		background.add(purpleborder2);
 		
+	
 		//Obstacle obstacle = new Obstacle("file:src/p4_group_8_repo/truck1Right.png", 25, 25, 3);
 		//Obstacle obstacle1 = new Obstacle("file:src/p4_group_8_repo/truck2Right.png", 100, 100,2 );
 		//Obstacle obstacle2 = new Obstacle("file:src/p4_group_8_repo/truck1Right.png",0,  150, 1);
@@ -149,7 +216,11 @@ public class GameView{
 		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 270, 329, 0.75*level));
 		background.add(new Log("file:src/p4_group_8_repo/log/log3.png", 150, 490, 329, 0.75*level));
 		//background.add(new Log("file:src/p4_group_8_repo/log3.png", 150, 570, 329, 0.75));
-
+		
+		
+		
+		
+		
 		background.add(new Turtle(500, 376, -1*level, 130, 130));
 		background.add(new Turtle(300, 376, -1*level, 130, 130));
 		background.add(new WetTurtle(700, 376, -1*level, 130, 130));
@@ -180,8 +251,13 @@ public class GameView{
 		background.add(new End(141 + 141-13,96));
 		background.add(new End(141 + 141-13+141-13+1,96));
 		background.add(new End(141 + 141-13+141-13+141-13+3,96));
+		
+		
 		animal = new Animal("file:src/p4_group_8_repo/frog/froggerUp.png");
 		background.add(animal);
+		
+		
+		
 		background.add(new Obstacle("file:src/p4_group_8_repo/truck/truck1"+"Right.png", 0, 649, 1*level, 120, 120));
 		background.add(new Obstacle("file:src/p4_group_8_repo/truck/truck1"+"Right.png", 300, 649, 1*level, 120, 120));
 		background.add(new Obstacle("file:src/p4_group_8_repo/truck/truck1"+"Right.png", 600, 649, 1*level, 120, 120));
@@ -200,8 +276,9 @@ public class GameView{
 		background.start();
 		//primaryStage.setScene(scene);
 		//primaryStage.show();
-		start(); 
-	}
+		start();
+		
+	}	*/
 	
 
 	public void createTimer() {
