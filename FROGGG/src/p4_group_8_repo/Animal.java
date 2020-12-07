@@ -2,7 +2,6 @@ package p4_group_8_repo;
 
 import java.util.ArrayList;
 
-import javafx.event.Event;
 import javafx.event.EventHandler;
 
 import javafx.scene.image.Image;
@@ -24,10 +23,13 @@ public class Animal extends Actor {
 	boolean changeScore = false;
 	int carD = 0;
 	double w = 800;
+	private int gethit;
+	int lives=4;
 	ArrayList<End> inter = new ArrayList<End>();
 	
 	
 	public Animal(String imageLink) {
+		
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
 		setX(300);
 		setY(679.8+movement);
@@ -45,7 +47,7 @@ public class Animal extends Actor {
 			public void handle(KeyEvent event){
 				if (noMove) {}
 				else {
-				if (second) {
+				if (second) {			
 					if (event.getCode() == KeyCode.W || event.getCode()==KeyCode.UP) {	  
 		                move(0, -movement);
 		                changeScore = false;
@@ -95,7 +97,7 @@ public class Animal extends Actor {
 			public void handle(KeyEvent event) {
 				if (noMove) {}
 				else {
-				if (event.getCode() == KeyCode.W) {	  
+				if (event.getCode() == KeyCode.W || event.getCode()==KeyCode.UP) {	  
 					if (getY() < w) {
 						changeScore = true;
 						w = getY();
@@ -105,17 +107,17 @@ public class Animal extends Actor {
 	                setImage(imgW1);
 	                second = false;
 	            }
-	            else if (event.getCode() == KeyCode.A) {	            	
+	            else if (event.getCode() == KeyCode.A || event.getCode()==KeyCode.LEFT) {	            	
 	            	 move(-movementX, 0);
 	            	 setImage(imgA1);
 	            	 second = false;
 	            }
-	            else if (event.getCode() == KeyCode.S) {	            	
+	            else if (event.getCode() == KeyCode.S || event.getCode()==KeyCode.DOWN) {	            	
 	            	 move(0, movement);
 	            	 setImage(imgS1);
 	            	 second = false;
 	            }
-	            else if (event.getCode() == KeyCode.D) {	            	
+	            else if (event.getCode() == KeyCode.D || event.getCode()==KeyCode.RIGHT) {	            	
 	            	 move(movementX, 0);
 	            	 setImage(imgD1);
 	            	 second = false;
@@ -126,10 +128,10 @@ public class Animal extends Actor {
 		});
 	}
 	
-	
-	
 	public void death(int dcount, String death ) {
-		 
+		if (gethit==0) {
+			gethit=1;
+		}
 		for(int i=1; i<=5 ;i++) 
 		{
 			if(death.equals("carDeath") && i==dcount && i<4)
@@ -147,8 +149,15 @@ public class Animal extends Actor {
 		
 	
 	public void carDmax() {
+		if (gethit==0) {
+			gethit=1;
+		}
 		setX(300);
 		setY(679.8+movement);
+		if (gethit==1) {
+			lives--;
+			gethit=0;
+		}
 		carDeath = false;
 		waterDeath=false;  //if error change to if cardeath , cardeath =false , same as waterdeath
 		carD = 0;
@@ -166,6 +175,10 @@ public class Animal extends Actor {
 		if (getY()<0 || getY()>734) {
 			setX(300);
 			setY(679.8+movement);
+			if (gethit==1) {
+				lives--;
+				gethit=0;
+			}
 		}
 		if (getX()<0) {
 			move(movement*2, 0);
@@ -213,6 +226,10 @@ public class Animal extends Actor {
 		else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
 			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk()) {
 				waterDeath = true;
+				if (gethit==0) {
+					gethit=1;
+				}
+				 
 			} else {
 				move(-1,0);
 			}
@@ -222,6 +239,9 @@ public class Animal extends Actor {
 			if (getIntersectingObjects(End.class).get(0).isActivated()) {
 				end--;
 				points-=50;
+				if (gethit==0) {
+					gethit=1;
+				}
 			}
 			points+=50;
 			changeScore = true;
@@ -230,9 +250,13 @@ public class Animal extends Actor {
 			end++;
 			setX(300);
 			setY(679.8+movement);
+			
 		}
 		else if (getY()<413){
 			waterDeath = true;
+			if (gethit==0) {
+				gethit=1;
+			}
 			//setX(300);
 			//setY(679.8+movement);
 		}
@@ -254,5 +278,7 @@ public class Animal extends Actor {
 		
 	}
 	
-
+	public int showlive() {
+		return lives;
+	}
 }

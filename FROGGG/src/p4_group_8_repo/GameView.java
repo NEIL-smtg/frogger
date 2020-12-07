@@ -32,35 +32,15 @@ public class GameView{
 	private Stage menuStage;
 	private int level;
 	private int orilevel;
+	boolean gameover=false;
+	int t=1;
 	
 	public GameView(int level) {
 		SpeedDecider(level);
 		background = new MyStage();
 		game();
-		//showlives();
 		showLevelText(level);
 		exitGame();
-	}
-
-	private void showlives() {
-		BackgroundImage img[] = new BackgroundImage[3];
-		int lives = frog.showlives();
-		System.out.println(lives);
-		int gap=0;
-		
-		
-		for (int i = 0; i <lives ; i++) {
-			img[i]=new BackgroundImage("file:src/p4_group_8_repo/frog/froggerUp.png");
-			img[i].setLayoutX(0+i*gap);
-			img[i].setLayoutY(750);
-			gap+=40;	
-		}
-		
-		background.add(img[0]);
-		background.add(img[1]);
-		background.add(img[2]);
-		background.add(img[3]);
-		background.add(img[4]);
 	}
 
 	private void showLevelText(int level) {
@@ -82,7 +62,7 @@ public class GameView{
 		}
 	}
 
-	private void exitGame() {
+	private void exitGame() { 
 		MenuButton exit = new MenuButton("EXIT");
 		exit.setLayoutX(450);
 		exit.setLayoutY(10);
@@ -154,7 +134,6 @@ public class GameView{
 		background.add(purpleborder2);
 	}
 	
-
 	private void game(){
 		gameScene=new Scene(background,GAME_WIDTH,GAME_HEIGHT);
 		gameStage = new Stage();
@@ -216,19 +195,35 @@ public class GameView{
 			background.add(loglane10[i]);
 		}
 		
-		
 		frog = new Animal("file:src/p4_group_8_repo/frog/froggerUp.png");
 		background.add(frog);
-
+		
+		
+		
 		background.start();
 		start();
 	}
 	
-
+	private void GameOver() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("GAME OVER...");
+		alert.setHeaderText("YOU HAVE LOST THE GAME...");
+		alert.setContentText("PLEASE HIT EXIT AT THE TOP RIGHT CORNER BACK TO MAIN MENU....");
+		alert.show();
+	
+	}
+	
 	public void createTimer() {
 	timer = new AnimationTimer() {
 	    @Override
 	    public void handle(long now) {
+	    	if (frog.lives==0) {
+				stop();
+				background.stop();
+				background.stopMusic();
+				GameOver();
+			}
+	    	
 	    	if (frog.changeScore()) {
 	    		setNumber(frog.getPoints());
 	    	}
