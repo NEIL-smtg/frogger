@@ -24,7 +24,7 @@ public class Animal extends Actor {
 	int carD = 0;
 	double w = 800;
 	private int gethit;
-	int lives=4;
+	int lifes=4;
 	int next=0;
 	ArrayList<End> inter = new ArrayList<End>();
 
@@ -152,8 +152,8 @@ public class Animal extends Actor {
 		setX(300);
 		setY(679.8+movement);
 		if (gethit==1) {
-			lives--;
-			System.out.println(lives);
+			lifes--;
+			System.out.println(lifes);
 			gethit=0;
 		}
 		carDeath = false;
@@ -175,7 +175,7 @@ public class Animal extends Actor {
 			setX(300);
 			setY(679.8+movement);
 			if (gethit==1) {
-				lives--;
+				lifes--;
 				gethit=0;
 			}
 		}

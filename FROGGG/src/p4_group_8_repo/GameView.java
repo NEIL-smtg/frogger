@@ -1,12 +1,6 @@
 package p4_group_8_repo;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Optional;
-
-import com.sun.javafx.collections.SetListenerHelper;
 
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
@@ -14,7 +8,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
 import javafx.scene.control.ButtonType;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -34,7 +27,7 @@ public class GameView{
 	private int level;
 	private int orilevel;
 	int next=0;
-	int updateLives=4;
+	int updateLifes=4;
 	int i;
 	BackgroundImage[] froglives = new BackgroundImage[4] ;
 	
@@ -48,7 +41,7 @@ public class GameView{
 	}
 
 	private void showLives() {
-		for ( i = 0; i < frog.lives; i++) {
+		for ( i = 0; i < frog.lifes; i++) {
 			froglives[i] =new BackgroundImage("file:src/p4_group_8_repo/frog/froggerUp.png");
 			froglives[i].setX(0+next);
 			froglives[i].setY(750);
@@ -88,7 +81,7 @@ public class GameView{
 
 			@Override
 			public void handle(ActionEvent event) {	
-				if (frog.lives !=0) {
+				if (frog.lifes !=0) {
 					setAlert();
 				}
 				else {
@@ -241,15 +234,15 @@ public class GameView{
 	timer = new AnimationTimer() {
 	    @Override 
 	    public void handle(long now) {
-	    	if (frog.lives==0) {
+	    	if (frog.lifes==0) {
 				stop();
 				background.stop();
 				background.stopMusic();
 				GameOver();
 			}
 	    	
-	    	if (frog.lives<updateLives) {
-	    		updateLives=frog.lives;
+	    	if (frog.lifes<updateLifes) {
+	    		updateLifes=frog.lifes;
 	    		background.getChildren().remove(froglives[i-1]);
 	    		i--;
 	    		next=0;
