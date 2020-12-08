@@ -25,8 +25,9 @@ public class Animal extends Actor {
 	double w = 800;
 	private int gethit;
 	int lives=4;
+	int next=0;
 	ArrayList<End> inter = new ArrayList<End>();
-	
+
 	
 	public Animal(String imageLink) {
 		
@@ -146,16 +147,13 @@ public class Animal extends Actor {
 			}				
 		}
 	}
-		
-	
+			
 	public void carDmax() {
-		if (gethit==0) {
-			gethit=1;
-		}
 		setX(300);
 		setY(679.8+movement);
 		if (gethit==1) {
 			lives--;
+			System.out.println(lives);
 			gethit=0;
 		}
 		carDeath = false;
@@ -171,6 +169,7 @@ public class Animal extends Actor {
 	
 	@Override
 	public void act(long now) {
+		
 		int bounds = 0;
 		if (getY()<0 || getY()>734) {
 			setX(300);
@@ -209,9 +208,15 @@ public class Animal extends Actor {
 		}
 		if (getIntersectingObjects(Obstacle.class).size() >= 1) {
 			carDeath = true;
+			if (gethit==0) {
+				gethit=1;
+			}
 		}
 		if (getX() == 240 && getY() == 82) {
 			stop = true;
+			if (gethit==0) {
+				gethit=1;
+			}
 		}
 		
 		if (getIntersectingObjects(Log.class).size() >= 1 && !noMove) {
@@ -261,8 +266,10 @@ public class Animal extends Actor {
 			//setY(679.8+movement);
 		}
 	}
+
+
 	public boolean getStop() {
-		return end==5; //,frog in hole==5 ,end of a level
+		return end==5; // frog in hole==5 ,end of a level
 	}
 	
 	public int getPoints() {
@@ -277,8 +284,5 @@ public class Animal extends Actor {
 		return false;
 		
 	}
-	
-	public int showlive() {
-		return lives;
-	}
+
 }

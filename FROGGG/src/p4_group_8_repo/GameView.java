@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Optional;
 
+import com.sun.javafx.collections.SetListenerHelper;
 
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
@@ -13,8 +14,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.scene.control.ButtonType;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -23,8 +24,8 @@ import javafx.stage.Stage;
 public class GameView{
 	private Scene gameScene;
 	private Stage gameStage;
-	AnimationTimer timer;
 	MyStage background;
+	AnimationTimer timer;
 	Animal animal;
 	Animal frog;
 	private static final int GAME_WIDTH = 600;
@@ -32,15 +33,29 @@ public class GameView{
 	private Stage menuStage;
 	private int level;
 	private int orilevel;
-	boolean gameover=false;
-	int t=1;
+	int next=0;
+	int updateLives=4;
+	int i;
+	BackgroundImage[] froglives = new BackgroundImage[4] ;
 	
 	public GameView(int level) {
 		SpeedDecider(level);
 		background = new MyStage();
 		game();
+		showLives();
 		showLevelText(level);
 		exitGame();
+	}
+
+	private void showLives() {
+		for ( i = 0; i < frog.lives; i++) {
+			froglives[i] =new BackgroundImage("file:src/p4_group_8_repo/frog/froggerUp.png");
+			froglives[i].setX(0+next);
+			froglives[i].setY(750);
+			background.add(froglives[i]);
+			next+=40;
+			
+		}
 	}
 
 	private void showLevelText(int level) {
@@ -68,11 +83,19 @@ public class GameView{
 		exit.setLayoutY(10);
 		exit.setPrefHeight(50);
 		exit.setPrefWidth(120);
+		
 		exit.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
-			public void handle(ActionEvent event) {
-				setAlert();
+			public void handle(ActionEvent event) {	
+				if (frog.lives !=0) {
+					setAlert();
+				}
+				else {
+					StoreData s = new StoreData(frog);
+					Menu.mainStage.show();
+					gameStage.close();
+				}
 			}
 
 			private void setAlert() {
@@ -84,7 +107,7 @@ public class GameView{
 					
 					if (option.get()==ButtonType.OK) {
 						background.stop();
-						//background.stopMusic();
+						background.stopMusic();
 						Menu.mainStage.show();
 						gameStage.close();
 					
@@ -133,12 +156,13 @@ public class GameView{
 		background.add(purpleborder1);
 		background.add(purpleborder2);
 	}
-	
+
 	private void game(){
 		gameScene=new Scene(background,GAME_WIDTH,GAME_HEIGHT);
 		gameStage = new Stage();
 		gameStage.setScene(gameScene);
 		backgroundsetup();
+		
 		
 		MovingObjects o = new MovingObjects(level);
 		Obstacle[] carlane1=o.getlane1();
@@ -208,20 +232,27 @@ public class GameView{
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("GAME OVER...");
 		alert.setHeaderText("YOU HAVE LOST THE GAME...");
-		alert.setContentText("PLEASE HIT EXIT AT THE TOP RIGHT CORNER BACK TO MAIN MENU....");
+		alert.setContentText("PLEASE EXIT TO MAIN MENU....");
 		alert.show();
 	
 	}
 	
 	public void createTimer() {
 	timer = new AnimationTimer() {
-	    @Override
+	    @Override 
 	    public void handle(long now) {
 	    	if (frog.lives==0) {
 				stop();
 				background.stop();
 				background.stopMusic();
 				GameOver();
+			}
+	    	
+	    	if (frog.lives<updateLives) {
+	    		updateLives=frog.lives;
+	    		background.getChildren().remove(froglives[i-1]);
+	    		i--;
+	    		next=0;
 			}
 	    	
 	    	if (frog.changeScore()) {
@@ -250,27 +281,11 @@ public class GameView{
 					game();
 				}
 				else {
-					storeScore();
+					StoreData S = new StoreData(frog);
 				}
 	    		
 	    	}
 	    }
-
-		private void storeScore() {
-			try(FileWriter fw = new FileWriter("src/viewManager/HighScoreDatabase.txt", true);
-		     BufferedWriter bw = new BufferedWriter(fw);
-		     PrintWriter out = new PrintWriter(bw))
-			{
-				out.print(frog.getPoints()+"\n");
-			} catch (IOException e) {}
-			
-			try(FileWriter fw = new FileWriter("src/viewManager/NameDatabase.txt", true);
-					BufferedWriter bw = new BufferedWriter(fw);
-					PrintWriter out = new PrintWriter(bw))
-					{
-					    out.print(EnterName.NewName+"\n");
-					} catch (IOException e) {}
-		}
 	};
 	}
 	
