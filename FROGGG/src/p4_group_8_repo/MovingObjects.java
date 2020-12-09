@@ -4,7 +4,7 @@ public class MovingObjects{
 	int gridY = 650;
 	int speed;
 	int level;
-	int y =50; //size per row
+	int y =50; //height per row
 	Obstacle[] carlane1 = new Obstacle[3];
 	Obstacle[] carlane4 = new Obstacle[2];
 	Obstacle[] trucklane2 =  new Obstacle[2];
