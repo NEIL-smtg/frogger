@@ -1,41 +1,42 @@
-package p4_group_8_repo;
+package Scene;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import Background.ScreenDesign;
+import GameMechanics.MenuButton;
+import GameMechanics.MyStage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 
 public class Menu {
 	private static final int HEIGHT =800;
 	private static final int WIDTH = 600;
-	private AnchorPane mainPane;
+	MyStage screen;
 	private Scene mainScene;
 	public static Stage mainStage;
 	
 	List<MenuButton> mButtons;
 	
 	public Menu() {
+		screen = new MyStage();
 		mButtons = new ArrayList<>();
-		mainPane= new AnchorPane();
-		mainScene = new Scene(mainPane,WIDTH,HEIGHT);
+		mainScene = new Scene(screen,WIDTH,HEIGHT);
 		mainStage = new Stage();
 		mainStage.setScene(mainScene);
+		
+		//create background
+		ScreenDesign design = new ScreenDesign();
+		screen.setBackground(new Background(design.paint()));
+		
 		createlogo();
-		createBackground();
 		createButtons();
 	
 	}
@@ -56,7 +57,7 @@ public class Menu {
 		button.setLayoutX(170);
 		button.setLayoutY(300 + mButtons.size()*100);
 		mButtons.add(button);
-		mainPane.getChildren().add(button);
+		screen.getChildren().add(button);
 	}
 	
 	
@@ -96,6 +97,16 @@ public class Menu {
 	private void createHelpButton() {
 		MenuButton helpButton = new MenuButton("HELP");
 		addMenuButton(helpButton);
+		
+		helpButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				Help help = new Help();
+				help.helpScene();
+			}
+			
+		});
 	}
 	
 	private void createExitButton() {
@@ -114,7 +125,7 @@ public class Menu {
 	}
 	
 	private void createlogo() {
-		ImageView logo = new ImageView("viewManager/logo2.png");
+		ImageView logo = new ImageView("file:src/resources/logo2.png");
 		logo.setLayoutX(50);
 		logo.setLayoutY(50);
 		
@@ -138,12 +149,6 @@ public class Menu {
 			
 		});
 		
-		mainPane.getChildren().add(logo);
-	}
-	
-	private void createBackground() {
-		Image backgroundImage = new Image("viewManager/newback.jpg",300,300,false,true);
-		BackgroundImage background = new BackgroundImage(backgroundImage,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,null);
-		mainPane.setBackground(new Background(background));
+		screen.getChildren().add(logo);
 	}
 }

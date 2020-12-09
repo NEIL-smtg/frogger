@@ -1,4 +1,4 @@
-package p4_group_8_repo;
+package GameMechanics;
 
 
 import java.util.ArrayList;
@@ -10,10 +10,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 
 
 public abstract class World extends Pane {
@@ -93,18 +91,12 @@ public abstract class World extends Pane {
     public void add(Actor actor) {
         getChildren().add(actor);
     }
-    
-    public void addbutton(Button b) {
-    	getChildren().add(b);
-    }
-    
-	public void addText(Text t) {
-		getChildren().add(t);	
-	}
-
+ 
+	
     public void remove(Actor actor) {
         getChildren().remove(actor);
     }
+    
 
     public <A extends Actor> List<A> getObjects(Class<A> cls) {
         ArrayList<A> someArray = new ArrayList<A>();

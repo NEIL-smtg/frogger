@@ -1,21 +1,23 @@
-package p4_group_8_repo;
+package GameMechanics;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import Scene.EnterName;
+
 public class StoreData
 {
-	StoreData(Animal frog) {
-		try(FileWriter fw = new FileWriter("src/viewManager/HighScoreDatabase.txt", true);
+	public void StoretoDatabase(Animal frog) {
+		try(FileWriter fw = new FileWriter("HighScoreDatabase.txt", true);
 	     BufferedWriter bw = new BufferedWriter(fw);
 	     PrintWriter out = new PrintWriter(bw))
 		{
 			out.print(frog.getPoints()+"\n");
 		} catch (IOException e) {}
 		
-		try(FileWriter fw = new FileWriter("src/viewManager/NameDatabase.txt", true);
+		try(FileWriter fw = new FileWriter("NameDatabase.txt", true);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter out = new PrintWriter(bw))
 				{

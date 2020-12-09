@@ -1,4 +1,4 @@
-package p4_group_8_repo;
+package GameMechanics;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
 
 public class MenuButton extends Button{
-	private final String FONT_PATH="file:src/model/ARCADECLASSIC.TTF";
+	private final String FONT_PATH="file:src/resources/ARCADECLASSIC.TTF";
 	private final String BUTTON_FREE_STYLE="-fx-background-color: #ddd";
 	//"-fx-background-color: transparent; -fx-background-image: url('/model/orange.png')";
 	

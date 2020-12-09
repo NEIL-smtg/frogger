@@ -1,5 +1,6 @@
-package p4_group_8_repo;
+package Main;
 
+import Scene.Menu;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -11,11 +12,9 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
-		//viewManager manager = new viewManager();
+	
 		Menu menu = new Menu();
 		primaryStage = menu.getMainStage();
-		//primaryStage = manager.getMainStage();
 		primaryStage.show();
 		
 				

@@ -1,21 +1,19 @@
-package p4_group_8_repo;
+package Scene;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import Background.ScreenDesign;
+import GameMechanics.MenuButton;
+import GameMechanics.MyStage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -25,7 +23,7 @@ import javafx.stage.Stage;
 public class EnterName {
 	private static final int HEIGHT =800;
 	private static final int WIDTH = 600;
-	private AnchorPane mainPane;
+	MyStage screen;
 	private Scene mainScene;
 	private Stage nameInputStage;
 	public static String NewName;
@@ -33,13 +31,17 @@ public class EnterName {
 
 	EnterName()
 	{
-		mainPane = new AnchorPane();
-		mainScene = new Scene(mainPane,WIDTH,HEIGHT);
+		screen = new MyStage();
+		mainScene = new Scene(screen,WIDTH,HEIGHT);
 		nameInputStage = new Stage();
 		nameInputStage.setScene(mainScene);
 		nameInputStage.setTitle("ENTER YOUR NAME");
+		
+		//create background
+		ScreenDesign design = new ScreenDesign();
+		screen.setBackground(new Background(design.paint()));
+				
 		ScreenDesign();
-		createBackground();
 		textfield();
 		
 	}
@@ -78,7 +80,7 @@ public class EnterName {
 			}
 		});
 		
-		mainPane.getChildren().addAll(back,enter);
+		screen.getChildren().addAll(back,enter);
 	}
 	
 	public void inputScene() 
@@ -100,13 +102,13 @@ public class EnterName {
 		nameField = new TextField();
 		nameField.setLayoutX(250);
 		nameField.setLayoutY(200);
-		mainPane.getChildren().addAll(name,nameField);
+		screen.getChildren().addAll(name,nameField);
 	}
 	
 	private void CheckDuplicateName() {
 		int i=0;
 		try {
-			File namelist = new File("src/viewManager/NameDatabase.txt");
+			File namelist = new File("NameDatabase.txt");
 			Scanner reader = new Scanner(namelist);
 			while (reader.hasNextLine() ) 
 			{
@@ -153,7 +155,7 @@ public class EnterName {
 	
 	private void fontsetup(Text text) {
 		try {
-			text.setFont(Font.loadFont("file:src/model/ARCADECLASSIC.TTF", 35));
+			text.setFont(Font.loadFont("file:src/resources/ARCADECLASSIC.TTF", 35));
 			text.setFill(Color.RED);
 			
 		} catch (Exception e) {
@@ -161,14 +163,6 @@ public class EnterName {
 		}
 	}
 	
-	
-	
-	private void createBackground() 
-	{
-		Image backgroundImage = new Image("viewManager/newback.jpg",300,300,false,true);
-		BackgroundImage background = new BackgroundImage(backgroundImage,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,null);
-		mainPane.setBackground(new Background(background));
-	}
 
 }
 

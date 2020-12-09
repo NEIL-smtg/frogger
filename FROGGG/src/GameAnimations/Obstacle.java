@@ -1,5 +1,6 @@
-package p4_group_8_repo;
+package GameAnimations;
 
+import GameMechanics.Actor;
 import javafx.scene.image.Image;
 
 public class Obstacle extends Actor {
@@ -19,5 +20,9 @@ public class Obstacle extends Actor {
 		setY(ypos);
 		speed = s;
 	}
+
+	
+
+	 
 
 }

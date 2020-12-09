@@ -1,7 +1,18 @@
-package p4_group_8_repo;
+package Scene;
 
 import java.util.Optional;
 
+import GameAnimations.Digit;
+import GameAnimations.End;
+import GameAnimations.Log;
+import GameAnimations.Obstacle;
+import GameAnimations.Turtle;
+import GameAnimations.WetTurtle;
+import GameMechanics.Animal;
+import GameMechanics.MenuButton;
+import GameMechanics.MovingObjects;
+import GameMechanics.MyStage;
+import GameMechanics.StoreData;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,6 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import Background.*;
 
 public class GameView{
 	private Scene gameScene;
@@ -42,7 +54,7 @@ public class GameView{
 
 	private void showLives() {
 		for ( i = 0; i < frog.lifes; i++) {
-			froglives[i] =new BackgroundImage("file:src/p4_group_8_repo/frog/froggerUp.png");
+			froglives[i] =new BackgroundImage("file:src/MovingObjectResources/frog/froggerUp.png");
 			froglives[i].setX(0+next);
 			froglives[i].setY(750);
 			background.add(froglives[i]);
@@ -57,12 +69,12 @@ public class GameView{
 		text.setX(30);
 		text.setY(60);
 		fontsetup(text);
-		background.addText(text);
+		background.getChildren().add(text);
 	}
 	
 	private void fontsetup(Text text) {
 		try {
-			text.setFont(Font.loadFont("file:src/model/ARCADECLASSIC.TTF", 35));
+			text.setFont(Font.loadFont("file:src/resources/ARCADECLASSIC.TTF", 35));
 			text.setFill(Color.RED);
 			
 		} catch (Exception e) {
@@ -85,7 +97,8 @@ public class GameView{
 					setAlert();
 				}
 				else {
-					StoreData s = new StoreData(frog);
+					StoreData s = new StoreData();
+					s.StoretoDatabase(frog);
 					Menu.mainStage.show();
 					gameStage.close();
 				}
@@ -131,10 +144,11 @@ public class GameView{
 	}
 	
 	private void backgroundsetup() {
-		BackgroundImage purpleborder1 = new BackgroundImage("p4_group_8_repo/purple border.jpg");
-		BackgroundImage purpleborder2 = new BackgroundImage("p4_group_8_repo/purple border.jpg");
-		BackgroundImage blackborder = new BackgroundImage("p4_group_8_repo/black border.jpg");
-		BackgroundImage darkblue = new BackgroundImage("p4_group_8_repo/deepblue.jpg");
+		BackgroundImage purpleborder1 = new BackgroundImage("resources/purple border.jpg");
+		BackgroundImage purpleborder2 = new BackgroundImage("resources/purple border.jpg");
+		BackgroundImage blackborder = new BackgroundImage("resources/black border.jpg");
+		BackgroundImage darkblue = new BackgroundImage("resources/deepblue.jpg");
+		
 		darkblue.setLayoutX(0);
 		darkblue.setLayoutY(0);
 		purpleborder1.setLayoutX(0);
@@ -168,9 +182,11 @@ public class GameView{
 		Log[] loglane8 = o.getlane8();
 		Log[] loglane10 = o.getlane10();
 		
-		BackgroundImage froggerback = new BackgroundImage("file:src/p4_group_8_repo/Screen Shot 2017-05-29 at 10.02.14 PM.png");
-		background.add(froggerback);
+		//BackgroundImage froggerback = new BackgroundImage("file:src/p4_group_8_repo/Screen Shot 2017-05-29 at 10.02.14 PM.png");
+		//background.add(froggerback);
+		
 		background.add(new Digit(0, 30, 280, 25));
+		
 		if (orilevel<=3) {
 			background.add(new End(141,86));
 			background.add(new End(398,86));
@@ -212,7 +228,7 @@ public class GameView{
 			background.add(loglane10[i]);
 		}
 		
-		frog = new Animal("file:src/p4_group_8_repo/frog/froggerUp.png");
+		frog = new Animal("file:src/MovingObjectResources/frog/froggerUp.png");
 		background.add(frog);
 		
 		
@@ -245,7 +261,6 @@ public class GameView{
 	    		updateLifes=frog.lifes;
 	    		background.getChildren().remove(froglives[i-1]);
 	    		i--;
-	    		next=0;
 			}
 	    	
 	    	if (frog.changeScore()) {
@@ -274,7 +289,8 @@ public class GameView{
 					game();
 				}
 				else {
-					StoreData S = new StoreData(frog);
+					StoreData S = new StoreData();
+					S.StoretoDatabase(frog);
 				}
 	    		
 	    	}

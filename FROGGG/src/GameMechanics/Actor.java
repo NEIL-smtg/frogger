@@ -1,4 +1,4 @@
-package p4_group_8_repo;
+package GameMechanics;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputEvent;
@@ -11,6 +11,7 @@ public abstract class Actor extends ImageView{
     public void move(double dx, double dy) {
         setX(getX() + dx);
         setY(getY() + dy);
+     
     }
 
     public World getWorld() {
@@ -19,6 +20,7 @@ public abstract class Actor extends ImageView{
 
     public double getWidth() {
         return this.getBoundsInLocal().getWidth();
+     
     }
 
     public double getHeight() {

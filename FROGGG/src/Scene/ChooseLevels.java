@@ -1,8 +1,11 @@
-package p4_group_8_repo;
+package Scene;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+
+import GameMechanics.MenuButton;
+import GameMechanics.MyStage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -21,7 +24,7 @@ import javafx.stage.Stage;
 public class ChooseLevels {
 	private Scene gameScene;
 	private Stage gameStage;
-	MyStage background;
+	MyStage screen;
 	private static final int GAME_WIDTH = 600;
 	private static final int GAME_HEIGHT = 800;
 	ArrayList<Button> levelbud = new ArrayList<Button>();
@@ -29,8 +32,8 @@ public class ChooseLevels {
 	private int pressedCnt=0;
 	
 	ChooseLevels(){
-		background =new MyStage();
-		gameScene=new Scene(background,GAME_WIDTH,GAME_HEIGHT);
+		screen =new MyStage();
+		gameScene=new Scene(screen,GAME_WIDTH,GAME_HEIGHT);
 		gameStage = new Stage();
 		gameStage.setScene(gameScene);
 		createBackground();
@@ -41,7 +44,7 @@ public class ChooseLevels {
 	
 	private void setButtonFont(Button b) {
 		try {
-			b.setFont(Font.loadFont(new FileInputStream("file:src/model/ARCADECLASSIC.TTF"),35));
+			b.setFont(Font.loadFont(new FileInputStream("file:src/resources/ARCADECLASSIC.TTF"),35));
 		}catch(FileNotFoundException e) {
 			b.setFont(Font.font("Verdana",23));
 		}	
@@ -67,7 +70,7 @@ public class ChooseLevels {
 				moveX=0;
 				moveY+=100;
 			}
-			background.addbutton(level);
+			screen.getChildren().add(level);
 		}
 		
 		for (int i = 0 ; i < levelbud.size(); i++) {
@@ -105,9 +108,9 @@ public class ChooseLevels {
 	}
 	
 	private void createBackground() {
-		Image backgroundImage = new Image("viewManager/newback.jpg",300,300,false,true);
+		Image backgroundImage = new Image("file:src/resources/mainbackground.jpg",300,300,false,true);
 		BackgroundImage back = new BackgroundImage(backgroundImage,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,null);
-		background.setBackground(new Background(back));
+		screen.setBackground(new Background(back));
 	}
 	
 	private void addbutton() {
@@ -143,8 +146,8 @@ public class ChooseLevels {
 				gameStage.close();
 			}
 		});
-		background.addbutton(play);
-		background.addbutton(back);
+		screen.getChildren().add(play);
+		screen.getChildren().add(back);
 	}
 	
 }
