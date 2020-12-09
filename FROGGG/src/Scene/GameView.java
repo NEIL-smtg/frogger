@@ -1,6 +1,9 @@
 package Scene;
 
 import java.util.Optional;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import GameAnimations.Digit;
 import GameAnimations.End;
@@ -13,8 +16,12 @@ import GameMechanics.MenuButton;
 import GameMechanics.MovingObjects;
 import GameMechanics.MyStage;
 import GameMechanics.StoreData;
+import GameMechanics.Time;
 import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -24,6 +31,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import Background.*;
 
 public class GameView{
@@ -42,40 +50,111 @@ public class GameView{
 	int updateLifes=4;
 	int i;
 	BackgroundImage[] froglives = new BackgroundImage[4] ;
+	BackgroundImage[] time;
+	int timeSeconds;
+	BackgroundImage b;
+	Text timesout;
 	
 	public GameView(int level) {
 		SpeedDecider(level);
 		background = new MyStage();
 		game();
-		showLives();
-		showLevelText(level);
+		showLifes();
+		showTime();
+		showText(level);
 		exitGame();
 	}
-
-	private void showLives() {
+	
+	private void showLifes() {
 		for ( i = 0; i < frog.lifes; i++) {
 			froglives[i] =new BackgroundImage("file:src/MovingObjectResources/frog/froggerUp.png");
 			froglives[i].setX(0+next);
 			froglives[i].setY(750);
 			background.add(froglives[i]);
 			next+=40;
-			
 		}
 	}
+	
+	private void showTime() {
+		Time t = new Time();
+		time = t.getTimer();
+			
+ 		for (int j = 0; j < time.length; j++) {
+			background.add(time[j]);
+		}
+ 		timetracking();
+	}
 
-	private void showLevelText(int level) {
-		Text text = new Text();
-		text.setText("LEVEL "+level);
-		text.setX(30);
-		text.setY(60);
-		fontsetup(text);
-		background.getChildren().add(text);
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void timetracking() {
+		timeSeconds=15;
+		Timeline timeline = new Timeline();
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.getKeyFrames().add(
+				new KeyFrame(Duration.seconds(1),
+						new EventHandler() {
+							@Override
+							public void handle(Event event) {
+								timeSeconds--;
+								background.remove(time[timeSeconds]);
+								
+								if (timeSeconds<=0 ) {
+									frog.lifes--;
+									if (frog.lifes==0) {
+										timeline.stop();
+									}
+									else {
+										TimesOut();
+										
+										//background.getChildren().removeAll(b,timesout);
+										showTime();
+									}
+								}
+							
+							}
+						}));
+		timeline.playFromStart();
+		
+	}
+	
+	private void TimesOut() {
+		b = new BackgroundImage("file:src/resources/black border.jpg");
+		b.setFitHeight(30);
+		b.setFitWidth(180);
+		b.setX(220);
+		b.setY(445);
+		
+		timesout = new Text();
+		timesout.setText("TIMES  OUT");
+		timesout.setX(230);
+		timesout.setY(470);
+		fontsetup(timesout);
+		timesout.setFill(Color.RED);
+		
+		background.getChildren().addAll(b,timesout);
+	
+	}
+	
+	private void showText(int level) {
+		Text lvl = new Text();
+		lvl.setText("LEVEL "+level);
+		lvl.setX(30);
+		lvl.setY(50);
+		fontsetup(lvl);
+		
+		Text timetext = new Text();
+		timetext.setText("TIME ");
+		timetext.setX(330);
+		timetext.setY(775);
+		fontsetup(timetext);
+		
+		background.getChildren().addAll(lvl,timetext);
 	}
 	
 	private void fontsetup(Text text) {
 		try {
 			text.setFont(Font.loadFont("file:src/resources/ARCADECLASSIC.TTF", 35));
-			text.setFill(Color.RED);
+			text.setFill(Color.GREENYELLOW);
 			
 		} catch (Exception e) {
 			text.setFont(Font.font("Verdana",23));
@@ -131,7 +210,7 @@ public class GameView{
 			this.level=level;
 		}
 		else {
-			this.level=(int) (1+level/3.5);
+			this.level=(int) (1+level/2);
 		}
 		
 	}
@@ -248,6 +327,7 @@ public class GameView{
 	
 	public void createTimer() {
 	timer = new AnimationTimer() {
+		
 	    @Override 
 	    public void handle(long now) {
 	    	if (frog.lifes==0) {
@@ -259,9 +339,15 @@ public class GameView{
 	    	
 	    	if (frog.lifes<updateLifes) {
 	    		updateLifes=frog.lifes;
-	    		background.getChildren().remove(froglives[i-1]);
+	    		background.remove(froglives[i-1]);
 	    		i--;
+	    		
+	    		if (timeSeconds !=0) {
+	    			background.getChildren().removeAll(time);
+				}	
+				showTime();
 			}
+	    	
 	    	
 	    	if (frog.changeScore()) {
 	    		setNumber(frog.getPoints());
@@ -296,6 +382,8 @@ public class GameView{
 	    	}
 	    }
 	};
+	
+	
 	}
 	
 	public void start() {
