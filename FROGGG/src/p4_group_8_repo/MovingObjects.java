@@ -23,6 +23,7 @@ public class MovingObjects{
 	}
 
 	private void movingObstacle() {
+		
 		int gap=0;
 		//carlanes
 		for (int i = 0; i < carlane1.length; i++) {		
