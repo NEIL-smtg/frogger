@@ -34,12 +34,12 @@ public class MovingObjects{
 			carlane4[i] = new Obstacle("file:src/p4_group_8_repo/car/car1left.png", gap, gridY-3*y, -2*level, 50, 50);
 		}
 				
-		//trucklanes
-		trucklane2[0]=new Obstacle("file:src/p4_group_8_repo/truck/truck2"+"Right.png", (int) (Math.random()*88), gridY-y, (int) (1.5*level), 200, 200);
-		trucklane2[1]=new Obstacle("file:src/p4_group_8_repo/truck/truck1"+"Right.png", (int) (Math.random()*33)+400, gridY-y, (int) (1.5*level), 120, 120);
+		//trucklanes		
+		trucklane2[0]=new Obstacle("file:src/p4_group_8_repo/truck/truck2"+"Right.png", 100, gridY-y, (int) (1.11*level), 200, 200);
+		trucklane2[1]=new Obstacle("file:src/p4_group_8_repo/truck/truck1"+"Right.png", 430, gridY-y, (int) (1.11*level), 120, 120);
 				
-		trucklane3[0]=new Obstacle("file:src/p4_group_8_repo/truck/truck2"+"left.png", (int) (Math.random()*33)+400, gridY-2*y, (int) (-1.5*level), 200, 200);
-		trucklane3[1]=new Obstacle("file:src/p4_group_8_repo/truck/truck1"+"left.png", (int) (Math.random()*88) , gridY-2*y, (int) (-1.5*level), 120, 120);
+		trucklane3[0]=new Obstacle("file:src/p4_group_8_repo/truck/truck2"+"left.png", 200, gridY-2*y, (int) (-1.22*level), 200, 200);
+		trucklane3[1]=new Obstacle("file:src/p4_group_8_repo/truck/truck1"+"left.png", 530 , gridY-2*y, (int) (-1.22*level), 120, 120);
 	}
 	
 	private void movingHelp() {
