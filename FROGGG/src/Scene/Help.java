@@ -62,18 +62,13 @@ public class Help {
 				+ "Speed   will   increases   as   the\nlevel   increases");
 		info.setX(60);
 		info.setY(150);
-		fontsetup(info);
+		fontsetup(info,35,Color.YELLOW);
 		screen.getChildren().add(info);
 	}
 	
-	private void fontsetup(Text text) {
-		try {
-			text.setFont(Font.loadFont("file:src/resources/ARCADECLASSIC.TTF", 35));
-			text.setFill(Color.BEIGE);
-			
-		} catch (Exception e) {
-			text.setFont(Font.font("Verdana",23));
-		}
+	private void fontsetup(Text text, int size , Color c) {
+		ScreenDesign s = new ScreenDesign();
+		s.fontsetup(text, 35, c);
 	}
 	
 	public void helpScene() {

@@ -6,6 +6,7 @@ import java.util.List;
 import Background.ScreenDesign;
 import GameMechanics.MenuButton;
 import GameMechanics.MyStage;
+import Panel.GameOver;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -38,7 +39,7 @@ public class Menu {
 		
 		createlogo();
 		createButtons();
-	
+
 	}
 
 	public Stage getMainStage() {

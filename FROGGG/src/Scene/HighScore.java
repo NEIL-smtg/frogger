@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -107,7 +106,7 @@ public class HighScore {
 		text.setX(210);
 		text.setY(230+k);
 		k+=35;
-		fontsetup(text);
+		fontsetup(text,35,Color.RED);
 		screen.getChildren().add(text);
 	}
 
@@ -123,19 +122,14 @@ public class HighScore {
 		text2.setX(400);
 		text2.setY(230+i);
 		i+=35;
-		fontsetup(text);
-		fontsetup(text2);
+		fontsetup(text,35,Color.RED);
+		fontsetup(text2,35,Color.RED);
 		screen.getChildren().addAll(text,text2);
 	}
 	
-	private void fontsetup(Text text) {
-		try {
-			text.setFont(Font.loadFont("file:src/resources/ARCADECLASSIC.TTF", 35));
-			text.setFill(Color.RED);
-			
-		} catch (Exception e) {
-			text.setFont(Font.font("Verdana",23));
-		}
+	private void fontsetup(Text text, int size , Color c) {
+		ScreenDesign s = new ScreenDesign();
+		s.fontsetup(text, 35, c);
 	}
 
 	public void createNewWindow() {

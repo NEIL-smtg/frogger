@@ -15,7 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -43,7 +42,7 @@ public class EnterName {
 				
 		ScreenDesign();
 		textfield();
-		
+	
 	}
 	
 	private void ScreenDesign() {
@@ -97,7 +96,7 @@ public class EnterName {
 		name.setText("NAME ");
 		name.setX(140);
 		name.setY(225);
-		fontsetup(name);
+		fontsetup(name,35,Color.RED);
 		
 		nameField = new TextField();
 		nameField.setLayoutX(250);
@@ -153,14 +152,9 @@ public class EnterName {
 	
 	
 	
-	private void fontsetup(Text text) {
-		try {
-			text.setFont(Font.loadFont("file:src/resources/ARCADECLASSIC.TTF", 35));
-			text.setFill(Color.RED);
-			
-		} catch (Exception e) {
-			text.setFont(Font.font("Verdana",23));
-		}
+	private void fontsetup(Text text, int size , Color c) {
+		ScreenDesign s = new ScreenDesign();
+		s.fontsetup(text, 35, c);
 	}
 	
 
