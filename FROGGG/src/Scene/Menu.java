@@ -3,11 +3,9 @@ package Scene;
 import java.util.ArrayList;
 import java.util.List;
 
-import Background.BackgroundImage;
 import Background.ScreenDesign;
 import GameMechanics.MenuButton;
 import GameMechanics.MyStage;
-import Panel.GameOver;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -65,7 +63,7 @@ public class Menu {
 	
 	
 	private void createStartButton() {
-		MenuButton startButton = new MenuButton("PLAY");
+		MenuButton startButton = new MenuButton("P L A Y");
 		addMenuButton(startButton);
 		
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -81,7 +79,7 @@ public class Menu {
 	}
 	
 	private void createScoreButton() {
-		MenuButton scoreButton = new MenuButton("HIGH SCORES");
+		MenuButton scoreButton = new MenuButton("HIGH  SCORES");
 		addMenuButton(scoreButton);
 		
 		scoreButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -97,7 +95,7 @@ public class Menu {
 	}
 	
 	private void createHelpButton() {
-		MenuButton helpButton = new MenuButton("HELP");
+		MenuButton helpButton = new MenuButton("H E L P");
 		addMenuButton(helpButton);
 		
 		helpButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -112,7 +110,7 @@ public class Menu {
 	}
 	
 	private void createExitButton() {
-		MenuButton exit = new MenuButton("EXIT");
+		MenuButton exit = new MenuButton("E X I T");
 		addMenuButton(exit);
 		
 		exit.setOnAction(new EventHandler<ActionEvent>() {

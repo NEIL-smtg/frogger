@@ -124,7 +124,7 @@ public class ChooseLevels {
 	
 	private void otherbutton() {
 		
-		MenuButton play = new MenuButton("PLAY ->");
+		MenuButton play = new MenuButton("P L A Y");
 		play.setLayoutX(400);
 		play.setLayoutY(20);
 		play.setPrefWidth(150);
@@ -142,7 +142,7 @@ public class ChooseLevels {
 			}
 		});
 		
-		MenuButton back = new MenuButton("<-BACK");
+		MenuButton back = new MenuButton("B A C K");
 		back.setLayoutX(20);
 		back.setLayoutY(20);
 		back.setPrefWidth(150);

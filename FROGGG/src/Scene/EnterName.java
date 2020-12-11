@@ -46,7 +46,7 @@ public class EnterName {
 	}
 	
 	private void ScreenDesign() {
-		MenuButton back = new MenuButton("<-BACK");
+		MenuButton back = new MenuButton("B A C K ");
 		back.setLayoutX(20);
 		back.setLayoutY(20);
 		back.setPrefWidth(150);
@@ -59,10 +59,10 @@ public class EnterName {
 			}
 		});
 		
-		MenuButton enter = new MenuButton("CHOOSE LEVELS");
-		enter.setLayoutX(200);
+		MenuButton enter = new MenuButton("C H O O S E     LEVELS");
+		enter.setLayoutX(170);
 		enter.setLayoutY(280);
-		enter.setPrefWidth(250);
+		enter.setPrefWidth(340);
 		enter.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
