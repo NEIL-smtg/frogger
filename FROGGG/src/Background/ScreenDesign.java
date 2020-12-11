@@ -1,5 +1,6 @@
 package Background;
 
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -17,7 +18,6 @@ public class ScreenDesign {
 	}
 	
 	public void fontsetup(Text t, int size , Color c) {
-		
 		try {
 			t.setFont(Font.loadFont("file:src/resources/ARCADECLASSIC.TTF", size));
 			t.setFill(c);
@@ -25,6 +25,14 @@ public class ScreenDesign {
 		} catch (Exception e) {
 			t.setFont(Font.font("Verdana",size));
 		}
+	}
 	
+	public void buttonfontsetup(Button b, int size ) {
+		try {
+			b.setFont(Font.loadFont("file:src/resources/ARCADECLASSIC.TTF", size));
+			
+		} catch (Exception e) {
+			b.setFont(Font.font("Verdana",size));
+		}
 	}
 }
