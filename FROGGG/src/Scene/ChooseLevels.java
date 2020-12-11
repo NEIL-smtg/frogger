@@ -1,9 +1,8 @@
 package Scene;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import Background.ScreenDesign;
 import GameMechanics.MenuButton;
 import GameMechanics.MyStage;
 import javafx.event.ActionEvent;
@@ -12,44 +11,35 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 //allow player to choose levels scene
 public class ChooseLevels {
+	
 	private Scene gameScene;
 	private Stage gameStage;
 	MyStage screen;
 	private static final int GAME_WIDTH = 600;
 	private static final int GAME_HEIGHT = 800;
 	ArrayList<Button> levelbud = new ArrayList<Button>();
-	private int choosenlvl=0;
-	private int pressedCnt=0;
+	int choosenlvl=0;
+	int pressedCnt=0;
+	ScreenDesign s = new ScreenDesign();
+	int[] levelindex = new int[10];
 	
 	ChooseLevels(){
 		screen =new MyStage();
 		gameScene=new Scene(screen,GAME_WIDTH,GAME_HEIGHT);
 		gameStage = new Stage();
 		gameStage.setScene(gameScene);
-		createBackground();
-		addbutton();
-		levelButtons();
 		
+		createBackground();
+		otherbutton();
+		levelButtons();	
 	}
-	
-	private void setButtonFont(Button b) {
-		try {
-			b.setFont(Font.loadFont(new FileInputStream("file:src/resources/ARCADECLASSIC.TTF"),35));
-		}catch(FileNotFoundException e) {
-			b.setFont(Font.font("Verdana",23));
-		}	
-	}
-	
+		
 	private void levelButtons() {
 		int moveX=0,moveY=0;
 		
@@ -58,7 +48,7 @@ public class ChooseLevels {
 			setButtonFont(level);
 			level.setPrefWidth(150);
 			level.setPrefHeight(40);
-			level.setStyle("-fx-background-color: #ddd");
+			level.setStyle("-fx-background-color: #ddd"); //grey
 			level.setLayoutX(100+moveX);
 			level.setLayoutY(180+moveY);
 			levelbud.add(level);
@@ -73,24 +63,40 @@ public class ChooseLevels {
 			screen.getChildren().add(level);
 		}
 		
-		for (int i = 0 ; i < levelbud.size(); i++) {
+		for (int i = 0; i < levelbud.size(); i++) {
 			int j=i;
-			levelbud.get(i).setOnAction(new EventHandler<ActionEvent>() {		
+			levelbud.get(i).setOnAction(new EventHandler<ActionEvent>() {
+			
 				@Override
 				public void handle(ActionEvent event) {
-					levelbud.get(j).setStyle("-fx-background-color: #800080");	
+					levelbud.get(j).setStyle("-fx-background-color: #800080"); //purple
 					pressedCnt++;
-					choosenlvl=j+1;
-					if (pressedCnt>1) {
+					levelindex[j]++;
+					if (pressedCnt >1) {
+						repositionButton();
 						warning();
 						pressedCnt=0;
-						choosenlvl=0;
-						levelButtons();
-					}				
+					}
+					
+					choosenlvl=j+1;
+								
 				}
 			});
 		}
 		
+	}
+	
+	private void repositionButton() {
+		
+		for (int i = 0; i < levelindex.length; i++) {
+			if (levelindex[i] >=1 ) {
+				levelbud.get(i).setStyle("-fx-background-color: #ddd");
+				levelindex[i]=0;
+				
+				choosenlvl=0;
+			}
+			
+		}
 	}
 	
 	private void warning()
@@ -108,12 +114,15 @@ public class ChooseLevels {
 	}
 	
 	private void createBackground() {
-		Image backgroundImage = new Image("file:src/resources/mainbackground.jpg",300,300,false,true);
-		BackgroundImage back = new BackgroundImage(backgroundImage,BackgroundRepeat.REPEAT,BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT,null);
-		screen.setBackground(new Background(back));
+		BackgroundImage b = s.paint();
+		screen.setBackground(new Background(b));
 	}
 	
-	private void addbutton() {
+	private void setButtonFont(Button b) {
+		s.buttonfontsetup(b, 28);
+	}
+	
+	private void otherbutton() {
 		
 		MenuButton play = new MenuButton("PLAY ->");
 		play.setLayoutX(400);
@@ -146,8 +155,8 @@ public class ChooseLevels {
 				gameStage.close();
 			}
 		});
-		screen.getChildren().add(play);
-		screen.getChildren().add(back);
+		
+		screen.getChildren().addAll(play,back);
 	}
 	
 }
