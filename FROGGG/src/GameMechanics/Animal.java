@@ -15,26 +15,28 @@ import javafx.scene.input.KeyEvent;
 
 
 public class Animal extends Actor {
-	Image imgW1, imgA1, imgS1, imgD1, imgW2, imgA2, imgS2, imgD2;
-	int points = 0, end=0;
+	private Image imgW1, imgA1, imgS1, imgD1, imgW2, imgA2, imgS2, imgD2;
+	private int points = 0, end=0;
 	private boolean second = false;
-	boolean noMove = false;
-	double movement = 13.3333333*2;
-	double movementX = 10.666666*2;
-	int imgSize = 40;
-	boolean carDeath = false;
-	boolean waterDeath = false;
-	boolean stop = false;
-	boolean changeScore = false;
-	int carD = 0;
-	double w = 800;
+	private boolean noMove = false;
+	private double movement = 13.3333333*2;
+	private double movementX = 10.666666*2;
+	private int imgSize = 40;
+	private boolean carDeath = false;
+	private boolean waterDeath = false;
+	private boolean stop = false;
+	private boolean changeScore = false;
+	private int carD = 0;
+	private double w = 800;
 	private int gethit;
 	public int lifes=4;
-	int next=0;
+	int level;
 	ArrayList<End> inter = new ArrayList<End>();
+	ProceedtoNextLevel ptnl = new ProceedtoNextLevel();
 
-	
-	public Animal(String imageLink) {
+	public Animal(String imageLink , int level) {
+		this.level=level;
+		points=ptnl.getPoints();
 		
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
 		setX(300);
@@ -158,7 +160,6 @@ public class Animal extends Actor {
 		setY(679.8+movement);
 		if (gethit==1) {
 			lifes--;
-			System.out.println(lifes);
 			gethit=0;
 		}
 		carDeath = false;
@@ -173,8 +174,7 @@ public class Animal extends Actor {
 	}
 	
 	@Override
-	public void act(long now) {
-		
+	public void act(long now) {	
 		int bounds = 0;
 		if (getY()<0 || getY()>734) {
 			setX(300);
@@ -226,12 +226,16 @@ public class Animal extends Actor {
 		
 		if (getIntersectingObjects(Log.class).size() >= 1 && !noMove) {
 			if(getIntersectingObjects(Log.class).get(0).getLeft())
-				move(-2,0);
-			else
-				move (.75,0);
+			{	
+				move(-1.2*level,0);	
+			}
+			else {
+				
+				move (1.2*level,0);
+			}
 		}
 		else if (getIntersectingObjects(Turtle.class).size() >= 1 && !noMove) {
-			move(-1,0);
+			move(-1*level,0);
 		}
 		else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
 			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk()) {
@@ -241,7 +245,7 @@ public class Animal extends Actor {
 				}
 				 
 			} else {
-				move(-1,0);
+				move(1*level,0);
 			}
 		}
 		else if (getIntersectingObjects(End.class).size() >= 1) {

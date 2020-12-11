@@ -10,6 +10,7 @@ public class Turtle extends Actor{
 	private int speed;
 	int i = 1;
 	boolean bool = true;
+	
 	@Override
 	public void act(long now) {
 		
@@ -32,6 +33,9 @@ public class Turtle extends Actor{
 		if (getX() < -75 && speed<0)
 			setX(600);
 	}
+	
+	public Turtle() {}
+	
 	public Turtle(int xpos, int ypos, int s, int w, int h) {
 		turtle1 = new Image("file:src/MovingObjectResources/turtlepic/TurtleAnimation1.png", w, h, true, true);
 		turtle2 = new Image("file:src/MovingObjectResources/turtlepic/TurtleAnimation2.png", w, h, true, true);
@@ -41,4 +45,5 @@ public class Turtle extends Actor{
 		speed = s;
 		setImage(turtle2);
 	}
+	
 }

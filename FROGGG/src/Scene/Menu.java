@@ -3,6 +3,7 @@ package Scene;
 import java.util.ArrayList;
 import java.util.List;
 
+import Background.BackgroundImage;
 import Background.ScreenDesign;
 import GameMechanics.MenuButton;
 import GameMechanics.MyStage;
@@ -39,7 +40,7 @@ public class Menu {
 		
 		createlogo();
 		createButtons();
-
+	
 	}
 
 	public Stage getMainStage() {

@@ -24,7 +24,7 @@ public class MovingObjects{
 	{	
 		this.level=level;
 		movingObstacle();
-		movingHelp();
+		movingAssits();
 	}
 
 	private void movingObstacle() {
@@ -48,7 +48,7 @@ public class MovingObjects{
 		trucklane3[1]=new Obstacle("file:src/MovingObjectResources/truck/truck1"+"left.png", 530 , gridY-2*y, (int) (-1.22*level), 120, 120);
 	}
 	
-	private void movingHelp() {
+	private void movingAssits() {
 		int gap=0;
 		
 		for (int i = 0; i < 2; i++) {

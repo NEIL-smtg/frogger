@@ -48,7 +48,14 @@ public class WetTurtle extends Actor{
 		speed = s;
 		setImage(turtle2);
 	}
+	
+	public WetTurtle(){}
+	
 	public boolean isSunk() {
 		return sunk;
+	}
+	
+	public int getspeed() {
+		return this.speed;
 	}
 }

@@ -12,6 +12,7 @@ import GameMechanics.Animal;
 import GameMechanics.MenuButton;
 import GameMechanics.MovingObjects;
 import GameMechanics.MyStage;
+import GameMechanics.ProceedtoNextLevel;
 import GameMechanics.StoreData;
 import GameMechanics.Time;
 import Panel.GameOver;
@@ -34,26 +35,24 @@ import Background.*;
 public class GameView{
 	private Scene gameScene;
 	private Stage gameStage;
-	MyStage background;
-	AnimationTimer timer;
-	Animal animal;
-	Animal frog;
+	private MyStage background;
+	private AnimationTimer timer;
+	private Animal frog;
 	private static final int GAME_WIDTH = 600;
 	private static final int GAME_HEIGHT = 800;
 	private Stage menuStage;
 	private int level;
 	private int orilevel;
-	int next=0;
-	int updateLifes=4;
-	int i;
-	BackgroundImage[] froglives = new BackgroundImage[4] ;
-	BackgroundImage[] time;
-	int timeSeconds;
-	int sec;
-	Timeline timeline;
-	BackgroundImage b;
-	Text timesout;
-	int came=0;
+	private int next=0;
+	private int updateLifes=4;
+	private int i;
+	private BackgroundImage[] froglives = new BackgroundImage[4] ;
+	private BackgroundImage[] time;
+	private int timeSeconds;
+	private int sec;
+	private Timeline timeline;
+	private BackgroundImage b;
+	private Text timesout;
 	
 	public GameView(int level) {
 		SpeedDecider(level);
@@ -83,7 +82,6 @@ public class GameView{
 		timetracking();
 	}
 
-		
 	//timer animation, time image reduce 1 by 1 as time goes by
 	@SuppressWarnings({ "unchecked", "rawtypes", "static-access" })
 	private void timetracking() {
@@ -105,8 +103,9 @@ public class GameView{
 									}
 									else {
 										frog.lifes--;
+										frog.setX(300);
+										frog.setY(679.8+13.3333333*2); //get from animal class
 										TimesOut();
-										showTime();
 										timeline.stop();
 									}
 								}
@@ -116,9 +115,7 @@ public class GameView{
 								}
 							}
 						}));
-		timeline.play();
-		
-		
+		timeline.play();		
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -319,7 +316,7 @@ public class GameView{
 		background.getChildren().addAll(loglane7);
 		background.getChildren().addAll(turtlelane6);
 		
-		frog = new Animal("file:src/MovingObjectResources/frog/froggerUp.png");
+		frog = new Animal("file:src/MovingObjectResources/frog/froggerUp.png",orilevel);
 		background.add(frog);
 				
 		background.start();
@@ -379,8 +376,13 @@ public class GameView{
 				Optional<ButtonType> option = alert.showAndWait();
 				
 				if (option.get()==ButtonType.OK) {
-					level++;
-					game();
+					orilevel++;
+					
+					ProceedtoNextLevel ptnl = new ProceedtoNextLevel();
+					ptnl.setpoint(frog.getPoints());
+					
+					GameView newgame = new GameView(orilevel);
+					newgame.createNewGame(gameStage);
 				}
 				else {
 					StoreData S = new StoreData();
@@ -389,9 +391,7 @@ public class GameView{
 	    		
 	    	}
 	    }
-	};
-	
-	
+	};	
 	}
 	
 	public void start() {
