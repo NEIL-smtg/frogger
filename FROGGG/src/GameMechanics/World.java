@@ -21,7 +21,6 @@ public abstract class World extends Pane {
     	
     	sceneProperty().addListener(new ChangeListener<Scene>() {
     		
-
 			@Override
 			public void changed(ObservableValue<? extends Scene> observable, Scene oldValue, Scene newValue) {
 				if (newValue != null) {

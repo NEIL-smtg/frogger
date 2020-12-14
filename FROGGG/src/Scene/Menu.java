@@ -3,56 +3,58 @@ package Scene;
 import java.util.ArrayList;
 import java.util.List;
 
-import Background.ScreenDesign;
 import GameMechanics.MenuButton;
 import GameMechanics.MyStage;
+import ScreenDesign.BackgroundImage;
+import ScreenDesign.ScreenDesign;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Menu {
-	private static final int HEIGHT =800;
-	private static final int WIDTH = 600;
+public class Menu{
 	MyStage screen;
 	private Scene mainScene;
 	public static Stage mainStage;
-	
+	ScreenDesign design = new ScreenDesign();
 	List<MenuButton> mButtons;
+	MenuButton startButton;
+	MenuButton exitButton;
+	MenuButton helpButton;
+	MenuButton highscoreButton;
+	BackgroundImage logo;
 	
 	public Menu() {
-		screen = new MyStage();
+		ScreenSetup();
 		mButtons = new ArrayList<>();
-		mainScene = new Scene(screen,WIDTH,HEIGHT);
-		mainStage = new Stage();
-		mainStage.setScene(mainScene);
-		
-		//create background
-		ScreenDesign design = new ScreenDesign();
-		screen.setBackground(new Background(design.paint()));
-		
 		createlogo();
 		createButtons();
+		ActionListener();
+	}
 	
+	public void ScreenSetup() {
+		//screen setup
+		screen = new MyStage();
+		mainScene=design.FixedScene(screen);
+		mainStage = new Stage();
+		mainStage.setScene(mainScene);
+		mainStage.setTitle("MENU");		
+		
+		//create background		
+		screen.setBackground(new Background(design.paint()));
 	}
 
 	public Stage getMainStage() {
 		return mainStage;
 	}
 	
-	private void createButtons() {
-		createStartButton();
-		createScoreButton();
-		createHelpButton();
-		createExitButton();
-	}
-	
 	private void addMenuButton(MenuButton button) {
+		//set position of each buttons
+		//changed y position of buttons everytime add button into screen
 		
 		button.setLayoutX(170);
 		button.setLayoutY(300 + mButtons.size()*100);
@@ -60,29 +62,44 @@ public class Menu {
 		screen.getChildren().add(button);
 	}
 	
-	
-	
-	private void createStartButton() {
-		MenuButton startButton = new MenuButton("P L A Y");
+	private void createButtons() {
+		//this method is creating buttons in menu
+		// then,  add the buttons into the list
+		
+		startButton = new MenuButton("P L A Y");
 		addMenuButton(startButton);
+		
+		highscoreButton = new MenuButton("HIGH  SCORES");
+		addMenuButton(highscoreButton);
+		
+		helpButton = new MenuButton("H E L P");
+		addMenuButton(helpButton);
+		
+		exitButton = new MenuButton("E X I T");
+		addMenuButton(exitButton);
+				
+	}
+	
+	private void createlogo() {
+		logo = new BackgroundImage("file:src/resources/logo2.png");
+		logo.setLayoutX(50);
+		logo.setLayoutY(50);
+		screen.getChildren().add(logo);
+	}
+	
+	public void ActionListener() {
+		//set action listener on each button 
 		
 		startButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				EnterName input = new EnterName();
-				input.inputScene();
+				EnterName name = new EnterName();
+				name.newScene();
 			}
-			
 		});
 		
-	}
-	
-	private void createScoreButton() {
-		MenuButton scoreButton = new MenuButton("HIGH  SCORES");
-		addMenuButton(scoreButton);
-		
-		scoreButton.setOnAction(new EventHandler<ActionEvent>() {
+		highscoreButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -92,11 +109,6 @@ public class Menu {
 			}
 			
 		});
-	}
-	
-	private void createHelpButton() {
-		MenuButton helpButton = new MenuButton("H E L P");
-		addMenuButton(helpButton);
 		
 		helpButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -107,13 +119,8 @@ public class Menu {
 			}
 			
 		});
-	}
-	
-	private void createExitButton() {
-		MenuButton exit = new MenuButton("E X I T");
-		addMenuButton(exit);
 		
-		exit.setOnAction(new EventHandler<ActionEvent>() {
+		exitButton.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -122,13 +129,8 @@ public class Menu {
 			}
 			
 		});
-	}
-	
-	private void createlogo() {
-		ImageView logo = new ImageView("file:src/resources/logo2.png");
-		logo.setLayoutX(50);
-		logo.setLayoutY(50);
 		
+		//set effect when mouse pointing the logo
 		logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -137,18 +139,16 @@ public class Menu {
 				ds.setColor(Color.ANTIQUEWHITE);
 				logo.setEffect(ds);
 			}
-			
+					
 		});
-		
+				
+		//remove effect when mouse not pointing it
 		logo.setOnMouseExited(new EventHandler<MouseEvent>() {
-
+	
 			@Override
 			public void handle(MouseEvent event) {
 				logo.setEffect(null);
-			}
-			
+			}			
 		});
-		
-		screen.getChildren().add(logo);
 	}
 }

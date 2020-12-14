@@ -1,6 +1,6 @@
 package GameMechanics;
 
-//this class is used to store points when player proceed to next level 
+//this class is used to store temporarily points when player proceed to next level 
 public class ProceedtoNextLevel {
 	int points;
 	

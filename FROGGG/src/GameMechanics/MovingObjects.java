@@ -6,10 +6,9 @@ import GameAnimations.Turtle;
 import GameAnimations.WetTurtle;
 
 public class MovingObjects{
-	int gridY = 650;
-	int speed;
-	int level;
-	int y =50; //height per row
+	private int gridY = 650;
+	private int speed;
+	private int y =50; //height per row
 	Obstacle[] carlane1 = new Obstacle[3];
 	Obstacle[] carlane4 = new Obstacle[2];
 	Obstacle[] trucklane2 =  new Obstacle[2];
@@ -20,9 +19,9 @@ public class MovingObjects{
 	Log[] loglane8 = new Log[3];
 	Log[] loglane10 = new Log[2];
 	
-	public MovingObjects(int level) 
-	{	
-		this.level=level;
+	
+	public MovingObjects(int speed) {	
+		this.speed=speed;
 		movingObstacle();
 		movingAssits();
 	}
@@ -32,35 +31,35 @@ public class MovingObjects{
 		int gap=0;
 		//carlanes
 		for (int i = 0; i < carlane1.length; i++) {		
-			carlane1[i]= new Obstacle("file:src/MovingObjectResources/car/car1right.png", gap, gridY, (int) (1.5*level) , 50, 50);
+			carlane1[i]= new Obstacle("file:src/MovingObjectResources/car/car1right.png", gap, gridY, (int) (1.5*speed) , 50, 50);
 			gap+=330;
 		}
 				
 		for (int i = 0; i < carlane4.length; i++) {
-			carlane4[i] = new Obstacle("file:src/MovingObjectResources/car/car1left.png", gap, gridY-3*y, -2*level, 50, 50);
+			carlane4[i] = new Obstacle("file:src/MovingObjectResources/car/car1left.png", gap, gridY-3*y, -2*speed, 50, 50);
 		}
 				
 		//trucklanes		
-		trucklane2[0]=new Obstacle("file:src/MovingObjectResources/truck/truck2"+"Right.png", 100, gridY-y, (int) (1.11*level), 200, 200);
-		trucklane2[1]=new Obstacle("file:src/MovingObjectResources/truck/truck1"+"Right.png", 430, gridY-y, (int) (1.11*level), 120, 120);
+		trucklane2[0]=new Obstacle("file:src/MovingObjectResources/truck/truck2"+"Right.png", 100, gridY-y, (int) (1.11*speed), 200, 200);
+		trucklane2[1]=new Obstacle("file:src/MovingObjectResources/truck/truck1"+"Right.png", 430, gridY-y, (int) (1.11*speed), 120, 120);
 				
-		trucklane3[0]=new Obstacle("file:src/MovingObjectResources/truck/truck2"+"left.png", 200, gridY-2*y, (int) (-1.22*level), 200, 200);
-		trucklane3[1]=new Obstacle("file:src/MovingObjectResources/truck/truck1"+"left.png", 530 , gridY-2*y, (int) (-1.22*level), 120, 120);
+		trucklane3[0]=new Obstacle("file:src/MovingObjectResources/truck/truck2"+"left.png", 200, gridY-2*y, (int) (-1.22*speed), 200, 200);
+		trucklane3[1]=new Obstacle("file:src/MovingObjectResources/truck/truck1"+"left.png", 530 , gridY-2*y, (int) (-1.22*speed), 120, 120);
 	}
 	
 	private void movingAssits() {
 		int gap=0;
 		
 		for (int i = 0; i < 2; i++) {
-			turtlelane6[i]= new Turtle(gap, gridY-5*(y+5) , (int) (-1.3*level), 130, 130);
-			loglane10[i]= new Log("file:src/MovingObjectResources/log/logs.png", 276, gap, gridY-9*(y+5),  1.2*level);
-			loglane7[i]= new Log("file:src/MovingObjectResources/log/log2.png", 200, gap-90, gridY-6*(y+5),  1.2*level);
+			turtlelane6[i]= new Turtle(gap, gridY-5*(y+5) , (int) (-1.3*speed), 130, 130);
+			loglane10[i]= new Log("file:src/MovingObjectResources/log/logs.png", 276, gap, gridY-9*(y+5),  1.2*speed);
+			loglane7[i]= new Log("file:src/MovingObjectResources/log/log2.png", 200, gap-90, gridY-6*(y+5),  1.2*speed);
 			gap+=330;
 		}
 		
 		for (int i = 0; i < 3; i++) {		
-			loglane8[i]= new Log("file:src/MovingObjectResources/log/log3.png", 166, gap, gridY-7*(y+5), -1.2*level);
-			turtlelane9[i]= new WetTurtle( gap-330 , gridY-8*(y+5) , (int) (1.3*level), 130, 130);
+			loglane8[i]= new Log("file:src/MovingObjectResources/log/log3.png", 166, gap, gridY-7*(y+5), -1.2*speed);
+			turtlelane9[i]= new WetTurtle( gap-330 , gridY-8*(y+5) , (int) (1.3*speed), 130, 130);
 			gap+=330;
 			
 		}

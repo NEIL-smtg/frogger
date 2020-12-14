@@ -30,11 +30,13 @@ public class Animal extends Actor {
 	private double w = 800;
 	private int gethit;
 	public int lifes=4;
-	int level;
+	private int speed;
+	private int level;
 	ArrayList<End> inter = new ArrayList<End>();
 	ProceedtoNextLevel ptnl = new ProceedtoNextLevel();
 
-	public Animal(String imageLink , int level) {
+	public Animal(String imageLink , int speed , int level) {
+		this.speed=speed;
 		this.level=level;
 		points=ptnl.getPoints();
 		
@@ -136,6 +138,7 @@ public class Animal extends Actor {
 		});
 	}
 	
+	
 	public void death(int dcount, String death ) {
 		if (gethit==0) {
 			gethit=1;
@@ -227,15 +230,15 @@ public class Animal extends Actor {
 		if (getIntersectingObjects(Log.class).size() >= 1 && !noMove) {
 			if(getIntersectingObjects(Log.class).get(0).getLeft())
 			{	
-				move(-1.2*level,0);	
+				move(-1.2*speed,0);	
 			}
 			else {
 				
-				move (1.2*level,0);
+				move (1.2*speed,0);
 			}
 		}
 		else if (getIntersectingObjects(Turtle.class).size() >= 1 && !noMove) {
-			move(-1*level,0);
+			move(-1*speed,0);
 		}
 		else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
 			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk()) {
@@ -245,7 +248,7 @@ public class Animal extends Actor {
 				}
 				 
 			} else {
-				move(1*level,0);
+				move(1*speed,0);
 			}
 		}
 		else if (getIntersectingObjects(End.class).size() >= 1) {
@@ -278,7 +281,20 @@ public class Animal extends Actor {
 
 
 	public boolean getStop() {
-		return end==5; // frog in hole==5 ,end of a level
+	// check if frogs are in all the hole, if yes, end of this level
+		
+		if (level <=3) {
+			return end==2;
+		}
+		else if (level >=4 && level<=6) {
+			return end==3;
+		}
+		else if (level >=7 && level <=8) {
+			return end==4;
+		}
+		else {
+			return end==5; 
+		}	
 	}
 	
 	public int getPoints() {

@@ -1,6 +1,6 @@
 package GameMechanics;
 
-import Background.ScreenDesign;
+import ScreenDesign.ScreenDesign;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;

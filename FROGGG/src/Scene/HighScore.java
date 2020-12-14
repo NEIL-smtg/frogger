@@ -1,16 +1,14 @@
 package Scene;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-import Background.ScreenDesign;
+import java.util.ArrayList;
+import GameMechanics.Database;
 import GameMechanics.MenuButton;
 import GameMechanics.MyStage;
+import ScreenDesign.BackgroundImage;
+import ScreenDesign.ScreenDesign;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -18,46 +16,49 @@ import javafx.stage.Stage;
 
 
 public class HighScore {
-	private int i=0,j,k=i;
 	private Scene highscoreScene;
 	private Stage highscoreStage;
-	MyStage screen;
-	private static final int WIDTH = 600;
-	private static final int HEIGHT = 800;
+	private MyStage screen;
+	ScreenDesign design = new ScreenDesign();
+	Database db = new Database();
+	private int gap=0;
 	
-	public HighScore() {
-		screen= new MyStage();
-		highscoreScene=new Scene(screen,WIDTH,HEIGHT);
+	public HighScore() {	
+		ScreenSetup();
+		createGraphics();
+		getData();
+	}
+		
+	private void ScreenSetup() {
+		//screen setup	
+		screen = new MyStage();
+		highscoreScene=design.FixedScene(screen);
 		highscoreStage = new Stage();
 		highscoreStage.setScene(highscoreScene);
+		highscoreStage.setTitle("HIGH SCORE");
 		
 		//create background
-		ScreenDesign design = new ScreenDesign();
 		screen.setBackground(new Background(design.paint()));
-		
-		ScreenDesign();
-		addlist();
 	}
 	
-	
-	private void ScreenDesign() {
-		ImageView highscorelogo = new ImageView("file:src/resources/highscorelogo2.png");
+	private void createGraphics() {
+		BackgroundImage highscorelogo = new BackgroundImage("file:src/resources/highscorelogo2.png");
 		highscorelogo.setLayoutX(100);
 		highscorelogo.setLayoutY(120);
 		
-		ImageView rank = new ImageView("file:src/resources/rank.jpg");
+		BackgroundImage rank = new BackgroundImage("file:src/resources/rank.jpg");
 		rank.setLayoutX(20);
 		rank.setLayoutY(180);
 		
-		ImageView score = new ImageView("file:src/resources/score.jpg");
+		BackgroundImage score = new BackgroundImage("file:src/resources/score.jpg");
 		score.setLayoutX(400);
 		score.setLayoutY(180);
 		
-		ImageView name = new ImageView("file:src/resources/name.jpg");
+		BackgroundImage name = new BackgroundImage("file:src/resources/name.jpg");
 		name.setLayoutX(200);
 		name.setLayoutY(180);
 		
-		MenuButton button = new MenuButton("<-BACK");
+		MenuButton button = new MenuButton("B A C K");
 		button.setLayoutX(20);
 		button.setLayoutY(20);
 		button.setPrefWidth(150);
@@ -68,63 +69,47 @@ public class HighScore {
 				Menu.mainStage.show();
 				highscoreStage.close();
 			}
-		});
-		
-		
+		});	
 		screen.getChildren().addAll(highscorelogo,rank,score,name,button);
 	}
 	
-	private void addlist() {
-		new Text();
-		j=1;
-		try {
-			File scorelist = new File("HighScoreDatabase.txt");
-			Scanner reader = new Scanner(scorelist);
-			while (reader.hasNextLine() ) {
-				String score = reader.nextLine();
-				showlist(j,score);	
-				j++;
-			}
-			File namelist = new File("NameDatabase.txt");
-			reader = new Scanner(namelist);
-			while (reader.hasNextLine() ) {
-				String name = reader.nextLine();
-				shownamelist(name);	
-				
-			}
-			reader.close();
-		} catch (FileNotFoundException e) {
-			System.out.println("FILE NOT FOUND.");
-			e.printStackTrace();
-		}	
+	private void getData() {
+		ArrayList<String> namelist = db.getNameDatabase();
+		ArrayList<String> scorelist = db.getScoreDatabase();
+		
+		for (int i = 0; i < namelist.size(); i++) {
+			printdata((i+1),namelist.get(i),scorelist.get(i));
+		}
 		
 	}
 	
-	private void shownamelist(String name) {
-		Text text = new Text();
-		text.setText(name);
-		text.setX(210);
-		text.setY(230+k);
-		k+=35;
-		fontsetup(text,35,Color.RED);
-		screen.getChildren().add(text);
-	}
-
-
-	private void showlist(int j,String score) {
-		Text text = new Text();
-		text.setText(Integer.toString(j));
-		text.setX(40);
-		text.setY(230+i);
+	private void printdata(int j, String dbname, String dbscore) {
+		Text index = new Text();
+		Text name = new Text();
+		Text score = new Text();
 		
-		Text text2 = new Text();
-		text2.setText(score);
-		text2.setX(400);
-		text2.setY(230+i);
-		i+=35;
-		fontsetup(text,35,Color.RED);
-		fontsetup(text2,35,Color.RED);
-		screen.getChildren().addAll(text,text2);
+		index.setText(Integer.toString(j));
+		name.setText(dbname);
+		score.setText(dbscore);
+		
+		fontsetup(index, 35, Color.RED);
+		fontsetup(name, 35, Color.RED);
+		fontsetup(score, 35, Color.RED);
+		
+		index.setX(40);
+		index.setY(230+gap);
+		
+		name.setX(210);
+		name.setY(230+gap);
+		
+		score.setX(400);
+		score.setY(230+gap);
+		
+		screen.getChildren().addAll(index);
+		screen.getChildren().addAll(name);
+		screen.getChildren().addAll(score);
+	
+		gap+=35;
 	}
 	
 	private void fontsetup(Text text, int size , Color c) {
@@ -134,8 +119,7 @@ public class HighScore {
 
 	public void createNewWindow() {
 		Menu.mainStage.hide();
-		highscoreStage.show();
-		
+		highscoreStage.show();	
 	}
 
 }

@@ -2,9 +2,9 @@ package Scene;
 
 import java.util.ArrayList;
 
-import Background.ScreenDesign;
 import GameMechanics.MenuButton;
 import GameMechanics.MyStage;
+import ScreenDesign.ScreenDesign;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -12,37 +12,43 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
 import javafx.stage.Stage;
 
 //allow player to choose levels scene
 public class ChooseLevels {
 	
-	private Scene gameScene;
-	private Stage gameStage;
-	MyStage screen;
-	private static final int GAME_WIDTH = 600;
-	private static final int GAME_HEIGHT = 800;
+	private Scene levelScene;
+	private Stage levelStage;
+	private MyStage screen;
 	ArrayList<Button> levelbud = new ArrayList<Button>();
-	int choosenlvl=0;
-	int pressedCnt=0;
-	ScreenDesign s = new ScreenDesign();
-	int[] levelindex = new int[10];
+	private int choosenlvl=0;
+	private int pressedCnt=0;
+	ScreenDesign design = new ScreenDesign();
+	private int[] levelindex = new int[10];
+	MenuButton play,back;
 	
-	ChooseLevels(){
-		screen =new MyStage();
-		gameScene=new Scene(screen,GAME_WIDTH,GAME_HEIGHT);
-		gameStage = new Stage();
-		gameStage.setScene(gameScene);
+	public ChooseLevels() {
+		ScreenSetup();
+		createButtons();
+		ButtonListener();
+	}
+	
+	private void ScreenSetup() {
+		//screen setup
+		screen = new MyStage();
+		levelScene=design.FixedScene(screen);
+		levelStage = new Stage();
+		levelStage.setScene(levelScene);
+		levelStage.setTitle("CHOOSE LEVELS");
 		
-		createBackground();
-		otherbutton();
-		levelButtons();	
+		//BACKGROUND IMAGE
+		screen.setBackground(new Background(design.paint()));
 	}
 		
-	private void levelButtons() {
+	private void createButtons() {
 		int moveX=0,moveY=0;
 		
+		//using normal button to show level button, removed effect of pressed style and freestyle button
 		for (int i = 1 ; i <= 10; i++) {
 			Button level = new Button("LEVEL"+i);
 			setButtonFont(level);
@@ -63,6 +69,24 @@ public class ChooseLevels {
 			screen.getChildren().add(level);
 		}
 		
+		
+		play = new MenuButton("P L A Y");
+		play.setLayoutX(400);
+		play.setLayoutY(20);
+		play.setPrefWidth(150);
+		
+		
+		back = new MenuButton("B A C K");
+		back.setLayoutX(20);
+		back.setLayoutY(20);
+		back.setPrefWidth(150);
+		
+		screen.getChildren().addAll(play,back);
+	}
+	
+	private void ButtonListener() {
+		
+		//set listener to each level buttons
 		for (int i = 0; i < levelbud.size(); i++) {
 			int j=i;
 			levelbud.get(i).setOnAction(new EventHandler<ActionEvent>() {
@@ -79,11 +103,38 @@ public class ChooseLevels {
 					}
 					
 					choosenlvl=j+1;
-								
+					
 				}
 			});
 		}
 		
+		//listener on play button
+		play.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent e) {
+				if (choosenlvl !=0) {
+					GameView game = new GameView(choosenlvl);
+					game.createNewGame(levelStage);
+				}
+				else {
+					warning();
+				}
+			}
+		});
+		
+		
+		//listener on back button
+		back.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent e) {
+				EnterName enter = new EnterName();
+				enter.newScene();
+				levelStage.close();
+			}
+		});
+			
 	}
 	
 	private void repositionButton() {
@@ -98,9 +149,10 @@ public class ChooseLevels {
 			
 		}
 	}
-	
+		
 	private void warning()
 	{
+		//create warning alert to remind player can only choose 1 level to play
 		Alert alert = new Alert(AlertType.WARNING);
 		alert.setTitle("WARNING");
 		alert.setHeaderText("CHOOSE ONLY ONE LEVEL TO PLAY !");
@@ -109,54 +161,15 @@ public class ChooseLevels {
 	}
 
 	public void NewScene(Stage menuStage) {
+		//close previous window and open this window
 		menuStage.hide();
-		gameStage.show();
+		levelStage.show();
 	}
-	
-	private void createBackground() {
-		BackgroundImage b = s.paint();
-		screen.setBackground(new Background(b));
-	}
-	
+		
 	private void setButtonFont(Button b) {
-		s.buttonfontsetup(b, 28);
+		design.buttonfontsetup(b, 28);
 	}
 	
-	private void otherbutton() {
-		
-		MenuButton play = new MenuButton("P L A Y");
-		play.setLayoutX(400);
-		play.setLayoutY(20);
-		play.setPrefWidth(150);
-		play.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent e) {
-				if (choosenlvl !=0) {
-					GameView game = new GameView(choosenlvl);
-					game.createNewGame(gameStage);
-				}
-				else {
-					warning();
-				}
-			}
-		});
-		
-		MenuButton back = new MenuButton("B A C K");
-		back.setLayoutX(20);
-		back.setLayoutY(20);
-		back.setPrefWidth(150);
-		back.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent e) {
-				EnterName enter = new EnterName();
-				enter.inputScene();
-				gameStage.close();
-			}
-		});
-		
-		screen.getChildren().addAll(play,back);
-	}
+	
 	
 }

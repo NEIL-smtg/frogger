@@ -1,8 +1,8 @@
 package Panel;
 
-import Background.BackgroundImage;
-import Background.ScreenDesign;
 import Scene.Menu;
+import ScreenDesign.BackgroundImage;
+import ScreenDesign.ScreenDesign;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;

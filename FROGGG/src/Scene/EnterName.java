@@ -1,12 +1,10 @@
 package Scene;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-
-import Background.ScreenDesign;
+import java.util.ArrayList;
+import GameMechanics.Database;
 import GameMechanics.MenuButton;
 import GameMechanics.MyStage;
+import ScreenDesign.ScreenDesign;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -20,49 +18,66 @@ import javafx.stage.Stage;
 
 
 public class EnterName {
-	private static final int HEIGHT =800;
-	private static final int WIDTH = 600;
 	MyStage screen;
 	private Scene mainScene;
 	private Stage nameInputStage;
 	public static String NewName;
 	private TextField nameField;
-
+	ScreenDesign design = new ScreenDesign();
+	MenuButton back,enter;
+	Database db = new Database();
+	
 	EnterName()
 	{
+		ScreenSetup();
+		createButton();
+		ButtonListener();
+		createtextfield();
+	}
+	
+	private void ScreenSetup() {
+		//screen setup
 		screen = new MyStage();
-		mainScene = new Scene(screen,WIDTH,HEIGHT);
+		mainScene=design.FixedScene(screen);
 		nameInputStage = new Stage();
 		nameInputStage.setScene(mainScene);
+		
+		//description of window
 		nameInputStage.setTitle("ENTER YOUR NAME");
 		
 		//create background
-		ScreenDesign design = new ScreenDesign();
 		screen.setBackground(new Background(design.paint()));
-				
-		ScreenDesign();
-		textfield();
-	
 	}
 	
-	private void ScreenDesign() {
-		MenuButton back = new MenuButton("B A C K ");
+	private void createButton() {
+		back = new MenuButton("B A C K ");
 		back.setLayoutX(20);
 		back.setLayoutY(20);
 		back.setPrefWidth(150);
+		
+		
+		enter = new MenuButton("C H O O S E     LEVELS");
+		enter.setLayoutX(140);
+		enter.setLayoutY(280);
+		enter.setPrefWidth(300);
+		
+		
+		screen.getChildren().addAll(back,enter);
+	}
+	
+	private void ButtonListener() {
+		//back button listener
 		back.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
 			public void handle(ActionEvent e) {
+				//back to menu
 				Menu.mainStage.show();
 				nameInputStage.close();
 			}
 		});
 		
-		MenuButton enter = new MenuButton("C H O O S E     LEVELS");
-		enter.setLayoutX(170);
-		enter.setLayoutY(280);
-		enter.setPrefWidth(340);
+		//choose level button listener
 		enter.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -78,19 +93,9 @@ public class EnterName {
 				}
 			}
 		});
-		
-		screen.getChildren().addAll(back,enter);
 	}
 	
-	public void inputScene() 
-	{
-		Menu.mainStage.hide();
-		nameInputStage.show();
-		
-	}
-	
-
-	private void textfield()
+	private void createtextfield()
 	{
 		Text name = new Text();
 		name.setText("NAME ");
@@ -101,39 +106,40 @@ public class EnterName {
 		nameField = new TextField();
 		nameField.setLayoutX(250);
 		nameField.setLayoutY(200);
+		
 		screen.getChildren().addAll(name,nameField);
 	}
 	
-	private void CheckDuplicateName() {
-		int i=0;
-		try {
-			File namelist = new File("NameDatabase.txt");
-			Scanner reader = new Scanner(namelist);
-			while (reader.hasNextLine() ) 
-			{
-				String oldname = reader.nextLine();
-				if(NewName.equalsIgnoreCase(oldname))
-				{
-					setAlert(oldname);
-					i=1;
-					break;
-				}
-			}	
-			if(i==0) 
-			{
-				ChooseLevels choose = new ChooseLevels();
-				choose.NewScene(nameInputStage);
-			}
-		} catch (FileNotFoundException e) 
-		{
-			System.out.println("FILE NOT FOUND.");
-			e.printStackTrace();
-		}
-		
+	public void newScene() 
+	{
+		//show this window only , close menu
+		Menu.mainStage.hide();
+		nameInputStage.show();	
 	}
 	
-
+	private void CheckDuplicateName() {
+		
+		boolean duplicate=false;
+		ArrayList<String> namelist = db.getNameDatabase();
+		
+		//check if input name is duplicated with name in high score list
+		for (int i = 0; i < namelist.size(); i++) {
+			
+			if (NewName.equalsIgnoreCase(namelist.get(i))) {
+				setAlert(namelist.get(i));
+				duplicate=true;
+				break;
+			}
+			
+		}
+		if (duplicate==false) {
+			ChooseLevels choose = new ChooseLevels();
+			choose.NewScene(nameInputStage);
+		}
+	}
+	
 	private void setAlert(String inputName) {
+		
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Error");
 		if(inputName.trim().equals(""))
@@ -150,13 +156,9 @@ public class EnterName {
 		}
 	}
 	
-	
-	
 	private void fontsetup(Text text, int size , Color c) {
-		ScreenDesign s = new ScreenDesign();
-		s.fontsetup(text, 35, c);
+		design.fontsetup(text, 35, c);
 	}
 	
-
 }
 

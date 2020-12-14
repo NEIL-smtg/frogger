@@ -1,4 +1,4 @@
-package Background;
+package ScreenDesign;
 
 import GameMechanics.Actor;
 import javafx.scene.image.Image;
