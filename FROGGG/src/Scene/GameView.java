@@ -15,7 +15,7 @@ import GameMechanics.MyStage;
 import GameMechanics.ProceedtoNextLevel;
 import GameMechanics.Database;
 import GameMechanics.Time;
-import Panel.GameOver;
+import Panel.EndGame;
 import ScreenDesign.*;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
@@ -27,6 +27,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -35,7 +37,7 @@ import javafx.util.Duration;
 public class GameView{
 	private Scene gameScene;
 	private Stage gameStage;
-	private MyStage background;
+	private MyStage screen;
 	private AnimationTimer timer;
 	private Animal frog;
 	private static final int GAME_WIDTH = 600;
@@ -53,10 +55,11 @@ public class GameView{
 	private Timeline timeline;
 	private BackgroundImage b;
 	private Text timesout;
+	Database db = new Database();
 	
 	public GameView(int level) {
 		SpeedDecider(level);
-		background = new MyStage();
+		screen = new MyStage();
 		ScreenSetup();
 		game();
 		showLifes();
@@ -76,7 +79,7 @@ public class GameView{
 	}
 		
 	private void ScreenSetup() {
-		gameScene=new Scene(background,GAME_WIDTH,GAME_HEIGHT);
+		gameScene=new Scene(screen,GAME_WIDTH,GAME_HEIGHT);
 		gameStage = new Stage();
 		gameStage.setScene(gameScene);
 		
@@ -97,8 +100,8 @@ public class GameView{
 		blackborder.setLayoutX(0);
 		blackborder.setLayoutY(470);
 		
-		background.getChildren().addAll(darkblue,blackborder);
-		background.getChildren().addAll(purplesafezone);
+		screen.getChildren().addAll(darkblue,blackborder);
+		screen.getChildren().addAll(purplesafezone);
 
 	}
 	
@@ -118,46 +121,46 @@ public class GameView{
 		//BackgroundImage froggerback = new BackgroundImage("file:src/p4_group_8_repo/Screen Shot 2017-05-29 at 10.02.14 PM.png");
 		//background.add(froggerback);
 		
-		background.add(new Digit(0, 30, 280, 25));
+		screen.add(new Digit(0, 30, 280, 25));
 		
 		if (level<=3) {
-			background.add(new End(141,86));
-			background.add(new End(398,86));
+			screen.add(new End(141,86));
+			screen.add(new End(398,86));
 		}
 		else if (level >=4 && level<=6) {
-			background.add(new End(111,86));
-			background.add(new End(269,86));
-			background.add(new End(420,86));
+			screen.add(new End(111,86));
+			screen.add(new End(269,86));
+			screen.add(new End(420,86));
 		}
 		else if (level>=7 && level<=8) {
-			background.add(new End(90,86));
-			background.add(new End(218,86));
-			background.add(new End(346,86));
-			background.add(new End(475,86));
+			screen.add(new End(90,86));
+			screen.add(new End(218,86));
+			screen.add(new End(346,86));
+			screen.add(new End(475,86));
 		}
 		else {
-			background.add(new End(13,86));
-			background.add(new End(141,86));
-			background.add(new End(269,86));
-			background.add(new End(398,86));
-			background.add(new End(525,86));
+			screen.add(new End(13,86));
+			screen.add(new End(141,86));
+			screen.add(new End(269,86));
+			screen.add(new End(398,86));
+			screen.add(new End(525,86));
 		}
 			
 	
-		background.getChildren().addAll(carlane1);
-		background.getChildren().addAll(trucklane2);
-		background.getChildren().addAll(trucklane3);
-		background.getChildren().addAll(carlane4);
-		background.getChildren().addAll(turtlelane6);
-		background.getChildren().addAll(loglane7);
-		background.getChildren().addAll(loglane8);
-		background.getChildren().addAll(turtlelane9);	
-		background.getChildren().addAll(loglane10);
+		screen.getChildren().addAll(carlane1);
+		screen.getChildren().addAll(trucklane2);
+		screen.getChildren().addAll(trucklane3);
+		screen.getChildren().addAll(carlane4);
+		screen.getChildren().addAll(turtlelane6);
+		screen.getChildren().addAll(loglane7);
+		screen.getChildren().addAll(loglane8);
+		screen.getChildren().addAll(turtlelane9);	
+		screen.getChildren().addAll(loglane10);
 		
 		frog = new Animal("file:src/MovingObjectResources/frog/froggerUp.png",speed,level);
-		background.add(frog);
+		screen.add(frog);
 				
-		background.start();
+		screen.start();
 		start();
 	}
 	
@@ -167,7 +170,7 @@ public class GameView{
 			froglives[i] =new BackgroundImage("file:src/MovingObjectResources/frog/froggerUp.png");
 			froglives[i].setX(0+next);
 			froglives[i].setY(750);
-			background.add(froglives[i]);
+			screen.add(froglives[i]);
 			next+=40;
 		}
 	}
@@ -176,7 +179,7 @@ public class GameView{
 		//show time animation
 		Time t = new Time();
 		time = t.getTimer();
-		background.getChildren().addAll(time);
+		screen.getChildren().addAll(time);
 		timetracking();
 	}
 
@@ -197,7 +200,7 @@ public class GameView{
 								if(frog.lifes >0) {
 									if (timeSeconds >0) {
 										timeSeconds--;
-										background.remove(time[timeSeconds]);
+										screen.remove(time[timeSeconds]);
 									}
 									else {
 										frog.lifes--;
@@ -208,7 +211,7 @@ public class GameView{
 									}
 								}
 								else {
-									background.getChildren().removeAll(time);
+									screen.getChildren().removeAll(time);
 									timeline.stop();
 								}
 							}
@@ -231,7 +234,7 @@ public class GameView{
 		fontsetup(timesout,35,Color.RED);
 		
 		sec=2;
-		background.getChildren().addAll(b,timesout);
+		screen.getChildren().addAll(b,timesout);
 		
 		Timeline t = new Timeline();
  		t.setCycleCount(sec);
@@ -243,7 +246,7 @@ public class GameView{
 					public void handle(Event event) {
 						sec--;
 						if(sec<=0) {
-							background.getChildren().removeAll(b,timesout);
+							screen.getChildren().removeAll(b,timesout);
 							t.stop();
 						}
 					}
@@ -265,7 +268,7 @@ public class GameView{
 		timetext.setY(775);
 		fontsetup(timetext,35,Color.GREENYELLOW);
 		
-		background.getChildren().addAll(lvl,timetext);
+		screen.getChildren().addAll(lvl,timetext);
 	}
 	
 	private void fontsetup(Text text, int size , Color c) {
@@ -303,7 +306,7 @@ public class GameView{
 					Optional<ButtonType> option = alert.showAndWait();
 					
 					if (option.get()==ButtonType.OK) {
-						background.stop();
+						screen.stop();
 						//background.stopMusic();
 						Menu.mainStage.show();
 						gameStage.close();
@@ -313,7 +316,7 @@ public class GameView{
 			
 		});
 		
-		background.getChildren().add(exit);
+		screen.getChildren().add(exit);
 	}
 
 	public void createNewGame(Stage menuStage) {
@@ -324,8 +327,9 @@ public class GameView{
 	}
 	
 	private void GameOver() {
-		GameOver gg = new GameOver();
-		background.getChildren().addAll(gg.getpanel(gameStage) ,   gg.gameoverText() ,gg.getblinkingtext() );
+		boolean won=false;
+		EndGame gg = new EndGame(won);
+		screen.getChildren().addAll(gg.getpanel(gameStage) ,   gg.gameoverText() ,gg.gameOverblinkingtext());
 	}
 	
 	public void createTimer() {
@@ -335,19 +339,19 @@ public class GameView{
 		    public void handle(long now) {
 		    	if (frog.lifes==0) {
 		    		timeline.stop();
-		    		background.getChildren().removeAll(time);
+		    		screen.getChildren().removeAll(time);
 					stop();
-					background.stop();
+					screen.stop();
 					//background.stopMusic();
 					GameOver();
 				}
 		    	
 		    	if (frog.lifes<updateLifes ) {
 		    		updateLifes=frog.lifes;
-		    		background.remove(froglives[i-1]);
+		    		screen.remove(froglives[i-1]);
 		    		i--;
 		    		timeline.stop();
-		    		background.getChildren().removeAll(time);
+		    		screen.getChildren().removeAll(time);
 		    		showTime();
 				}
 		    	
@@ -360,36 +364,46 @@ public class GameView{
 		    		
 		    		//background.stopMusic();
 		    		stop();
-		    		background.stop();
-		    		Alert alert = new Alert(AlertType.INFORMATION);
-		    		alert.setTitle("You Have Won The Game!");
-		    		alert.setHeaderText("Your High Score: "+frog.getPoints()+"!");
-		    		alert.setContentText("Highest Possible Score: 800");
-		    		alert.show();
-		    		
-		    		alert = new Alert(AlertType.CONFIRMATION);
-					alert.setTitle("CONTINUE");
-					alert.setHeaderText("CONGRATULATIONS !");
-					alert.setContentText("DO YOU WANT TO TRY NEXT LEVEL ?");
-					Optional<ButtonType> option = alert.showAndWait();
-					
-					if (option.get()==ButtonType.OK) {
-						level++;
-						
-						ProceedtoNextLevel ptnl = new ProceedtoNextLevel();
-						ptnl.setpoint(frog.getPoints());
-						
-						GameView newgame = new GameView(level);
-						newgame.createNewGame(gameStage);
-					}
-					else {
-						Database S = new Database();
-						S.StoretoDatabase(frog);
-					}
-		    		
+		    		screen.stop();
+		    		timeline.stop();
+		    		GameWon();
 		    	}
 		    }
 		};	
+	}
+	
+	private void GameWon() {
+		boolean won=true;
+		EndGame w = new EndGame(won);
+		BackgroundImage panel = w.getpanel(gameStage);
+		
+		screen.getChildren().add(panel);
+		screen.getChildren().add(w.gameWonblinkingtext());
+		screen.getChildren().add(w.escText());
+		screen.getChildren().add(w.gameWonText(frog));
+		
+		panel.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				if (event.getCode()==KeyCode.ESCAPE) {
+					db.StoretoDatabase(frog);
+					Menu.mainStage.show();
+					gameStage.close();
+				}
+				else if (event.getCode()==KeyCode.G) {
+					level++;
+					
+					ProceedtoNextLevel ptnl = new ProceedtoNextLevel();
+					ptnl.setpoint(frog.getPoints());
+					
+					GameView newgame = new GameView(level);
+					newgame.createNewGame(gameStage);
+				}
+			}
+
+		});
+
 	}
 	
 	public void start() {
@@ -408,7 +422,7 @@ public class GameView{
 			  int d = n / 10;
 			  int k = n - d * 10;
 			  n = d;
-			  background.add(new Digit(k, 30, 280 - shift, 25));
+			  screen.add(new Digit(k, 30, 280 - shift, 25));
 			  shift+=20;
 		}
 	}
