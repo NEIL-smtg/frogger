@@ -33,7 +33,7 @@ public class Animal extends Actor {
 	private int speed;
 	private int level;
 	ArrayList<End> inter = new ArrayList<End>();
-	
+	SoundEffect effect = new SoundEffect();
 
 	public Animal(String imageLink , int speed , int level) {
 		this.speed=speed;
@@ -55,6 +55,7 @@ public class Animal extends Actor {
 		
 		setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event){
+				effect.HopSound();
 				if (noMove) {}
 				else {
 				if (second) {			
@@ -141,6 +142,7 @@ public class Animal extends Actor {
 	
 	public void death(int dcount, String death ) {
 		if (gethit==0) {
+			effect.squash();
 			gethit=1;
 		}
 		for(int i=1; i<=5 ;i++) 
@@ -217,12 +219,14 @@ public class Animal extends Actor {
 		if (getIntersectingObjects(Obstacle.class).size() >= 1) {
 			carDeath = true;
 			if (gethit==0) {
+				effect.squash();
 				gethit=1;
 			}
 		}
 		if (getX() == 240 && getY() == 82) {
 			stop = true;
 			if (gethit==0) {
+				effect.squash();
 				gethit=1;
 			}
 		}
@@ -245,6 +249,7 @@ public class Animal extends Actor {
 				waterDeath = true;
 				if (gethit==0) {
 					gethit=1;
+					effect.squash();
 				}
 				 
 			} else {
@@ -273,6 +278,7 @@ public class Animal extends Actor {
 		else if (getY()<413){
 			waterDeath = true;
 			if (gethit==0) {
+				effect.squash();
 				gethit=1;
 			}
 			//setX(300);
