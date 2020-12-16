@@ -55,7 +55,6 @@ public class Animal extends Actor {
 		
 		setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event){
-				effect.HopSound();
 				if (noMove) {}
 				else {
 				if (second) {			
@@ -64,42 +63,50 @@ public class Animal extends Actor {
 		                changeScore = false;
 		                setImage(imgW1);
 		                second = false;
+		                effect.HopSound();
 		            }
 		            else if (event.getCode() == KeyCode.A || event.getCode()==KeyCode.LEFT) {	            	
 		            	 move(-movementX, 0);
 		            	 setImage(imgA1);
 		            	 second = false;
+		            	 effect.HopSound();
 		            }
 		            else if (event.getCode() == KeyCode.S || event.getCode()==KeyCode.DOWN) {	            	
 		            	 move(0, movement);
 		            	 setImage(imgS1);
 		            	 second = false;
+		            	 effect.HopSound();
 		            }
 		            else if (event.getCode() == KeyCode.D || event.getCode()==KeyCode.RIGHT) {	            	
 		            	 move(movementX, 0);
 		            	 setImage(imgD1);
 		            	 second = false;
+		            	 effect.HopSound();
 		            }
 				}
 				else if (event.getCode() == KeyCode.W || event.getCode()==KeyCode.UP) {	            	
 	                move(0, -movement);
 	                setImage(imgW2);
 	                second = true;
+	                effect.HopSound();
 	            }
 	            else if (event.getCode() == KeyCode.A || event.getCode()==KeyCode.LEFT) {	            	
 	            	 move(-movementX, 0);
 	            	 setImage(imgA2);
 	            	 second = true;
+	            	 effect.HopSound();
 	            }
 	            else if (event.getCode() == KeyCode.S || event.getCode()==KeyCode.DOWN) {	            	
 	            	 move(0, movement);
 	            	 setImage(imgS2);
 	            	 second = true;
+	            	 effect.HopSound();
 	            }
 	            else if (event.getCode() == KeyCode.D || event.getCode()==KeyCode.RIGHT) {	            	
 	            	 move(movementX, 0);
 	            	 setImage(imgD2);
 	            	 second = true;
+	            	 effect.HopSound();
 	            }
 	        }
 			}
@@ -117,21 +124,25 @@ public class Animal extends Actor {
 	                move(0, -movement);
 	                setImage(imgW1);
 	                second = false;
+	                effect.HopSound();
 	            }
 	            else if (event.getCode() == KeyCode.A || event.getCode()==KeyCode.LEFT) {	            	
 	            	 move(-movementX, 0);
 	            	 setImage(imgA1);
 	            	 second = false;
+	            	 effect.HopSound();
 	            }
 	            else if (event.getCode() == KeyCode.S || event.getCode()==KeyCode.DOWN) {	            	
 	            	 move(0, movement);
 	            	 setImage(imgS1);
 	            	 second = false;
+	            	 effect.HopSound();
 	            }
 	            else if (event.getCode() == KeyCode.D || event.getCode()==KeyCode.RIGHT) {	            	
 	            	 move(movementX, 0);
 	            	 setImage(imgD1);
 	            	 second = false;
+	            	 effect.HopSound();
 	            }
 	        }
 			}

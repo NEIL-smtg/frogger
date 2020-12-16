@@ -19,6 +19,7 @@ public class SoundEffect {
 		String musicFile = "src/resources/sound-frogger-time.wav";   
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.setVolume(100);
 	    mediaPlayer.play();
 	}
 	

@@ -12,6 +12,7 @@ import GameMechanics.Animal;
 import GameMechanics.MenuButton;
 import GameMechanics.MovingObjects;
 import GameMechanics.MyStage;
+import GameMechanics.SoundEffect;
 import GameMechanics.SpeedDecider;
 import GameMechanics.Database;
 import GameMechanics.Time;
@@ -56,6 +57,7 @@ public class GameView{
 	private BackgroundImage b;
 	private Text timesout;
 	Database db = new Database();
+	SoundEffect effect = new SoundEffect();
 	
 	public GameView(int level) {
 		this.level=level;	
@@ -217,6 +219,9 @@ public class GameView{
 									if (timeSeconds >0) {
 										timeSeconds--;
 										screen.remove(time[timeSeconds]);
+										if (timeSeconds==8) {
+											effect.TimeRunsOut();
+										}
 									}
 									else {
 										frog.lifes--;
