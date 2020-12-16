@@ -9,8 +9,6 @@ import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -19,11 +17,10 @@ import javafx.scene.input.KeyEvent;
 
 public class EndGame {
 	BackgroundImage ggPanel;
-	boolean won;
 	Database db= new Database();
 	
-	public EndGame(boolean won){
-		this.won=won;
+	public EndGame(Animal frog){
+		//db.StoretoDatabase(frog);
 	}
 	
 	//create black panel when game end
@@ -34,6 +31,7 @@ public class EndGame {
 		ggPanel.setX(120);
 		ggPanel.setY(150);
 		keylistener(currentStage);
+		
 		return ggPanel;
 	}
 	
@@ -63,7 +61,7 @@ public class EndGame {
 		t.getTextAlignment();
 		ScreenDesign s = new ScreenDesign();
 		s.fontsetup(t, 20, Color.YELLOW);
-	
+
 		return t;
 	}
 	
@@ -116,15 +114,13 @@ public class EndGame {
 
 			@Override
 			public void handle(KeyEvent event) {
-				if (won==false) {
-					if (event.getCode()==KeyCode.SPACE) {
-						Menu.mainStage.show();
-						currentStage.close();
-					}
-				}
 				
-				//game won key listener is implemented in GameView class
+				if (event.getCode()==KeyCode.SPACE) {
+					Menu.mainStage.show();
+					currentStage.close();
+				}	
 				
+				//game won key listener is implemented in GameView class			
 			}
 		});
 	}

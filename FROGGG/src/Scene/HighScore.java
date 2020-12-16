@@ -23,7 +23,7 @@ public class HighScore {
 	Database db = new Database();
 	private int gap=0;
 	
-	public HighScore() {	
+	public HighScore() {
 		ScreenSetup();
 		createGraphics();
 		getData();
@@ -90,7 +90,7 @@ public class HighScore {
 		
 		index.setText(Integer.toString(j));
 		name.setText(dbname);
-		score.setText(dbscore);
+		score.setText(dbscore.toString());
 		
 		fontsetup(index, 35, Color.RED);
 		fontsetup(name, 35, Color.RED);
@@ -102,7 +102,7 @@ public class HighScore {
 		name.setX(210);
 		name.setY(230+gap);
 		
-		score.setX(400);
+		score.setX(420);
 		score.setY(230+gap);
 		
 		screen.getChildren().addAll(index);

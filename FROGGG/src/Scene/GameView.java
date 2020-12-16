@@ -12,7 +12,7 @@ import GameMechanics.Animal;
 import GameMechanics.MenuButton;
 import GameMechanics.MovingObjects;
 import GameMechanics.MyStage;
-import GameMechanics.ProceedtoNextLevel;
+import GameMechanics.SpeedDecider;
 import GameMechanics.Database;
 import GameMechanics.Time;
 import Panel.EndGame;
@@ -58,6 +58,8 @@ public class GameView{
 	Database db = new Database();
 	
 	public GameView(int level) {
+		this.level=level;
+		
 		SpeedDecider(level);
 		screen = new MyStage();
 		ScreenSetup();
@@ -69,13 +71,9 @@ public class GameView{
 	}
 	
 	private void SpeedDecider(int level) {
-		this.level=level;
-		if (level==1) {
-			speed=level;
-		}
-		else {
-			speed=(int) (1+level/9);
-		}	
+		
+		SpeedDecider sd = new SpeedDecider(level);
+		speed=sd.getspeed();
 	}
 		
 	private void ScreenSetup() {
@@ -291,8 +289,6 @@ public class GameView{
 					setAlert();
 				}
 				else {
-					Database db = new Database();
-					db.StoretoDatabase(frog);
 					Menu.mainStage.show();
 					gameStage.close();
 				}
@@ -327,9 +323,20 @@ public class GameView{
 	}
 	
 	private void GameOver() {
-		boolean won=false;
-		EndGame gg = new EndGame(won);
+		boolean duplicate;
+		duplicate = db.checkDuplicateName();
+		EndGame gg = new EndGame(frog);
 		screen.getChildren().addAll(gg.getpanel(gameStage) ,   gg.gameoverText() ,gg.gameOverblinkingtext());
+		
+		if (duplicate==false) {
+			db.StoretoDatabase(frog.getPoints());
+		}
+		else {
+			db.changeData(frog.getPoints());
+			
+		}
+		
+		
 	}
 	
 	public void createTimer() {
@@ -373,30 +380,35 @@ public class GameView{
 	}
 	
 	private void GameWon() {
-		boolean won=true;
-		EndGame w = new EndGame(won);
-		BackgroundImage panel = w.getpanel(gameStage);
+		boolean duplicate;
+		duplicate = db.checkDuplicateName();
+		
+		if (duplicate==false) {
+			db.StoretoDatabase(frog.getPoints());
+		}
+		else {
+			db.changeData(frog.getPoints());
+		}
+		
+		//display the panel when player wins the level
+		EndGame won = new EndGame(frog);
+		BackgroundImage panel = won.getpanel(gameStage);
 		
 		screen.getChildren().add(panel);
-		screen.getChildren().add(w.gameWonblinkingtext());
-		screen.getChildren().add(w.escText());
-		screen.getChildren().add(w.gameWonText(frog));
+		screen.getChildren().add(won.gameWonblinkingtext());
+		screen.getChildren().add(won.escText());
+		screen.getChildren().add(won.gameWonText(frog));
 		
 		panel.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
 			@Override
 			public void handle(KeyEvent event) {
 				if (event.getCode()==KeyCode.ESCAPE) {
-					db.StoretoDatabase(frog);
 					Menu.mainStage.show();
 					gameStage.close();
 				}
 				else if (event.getCode()==KeyCode.G) {
 					level++;
-					
-					ProceedtoNextLevel ptnl = new ProceedtoNextLevel();
-					ptnl.setpoint(frog.getPoints());
-					
 					GameView newgame = new GameView(level);
 					newgame.createNewGame(gameStage);
 				}

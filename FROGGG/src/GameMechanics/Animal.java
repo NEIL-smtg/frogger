@@ -33,12 +33,10 @@ public class Animal extends Actor {
 	private int speed;
 	private int level;
 	ArrayList<End> inter = new ArrayList<End>();
-	ProceedtoNextLevel ptnl = new ProceedtoNextLevel();
 
 	public Animal(String imageLink , int speed , int level) {
 		this.speed=speed;
 		this.level=level;
-		points=ptnl.getPoints();
 		
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
 		setX(300);

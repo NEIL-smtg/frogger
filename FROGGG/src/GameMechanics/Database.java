@@ -1,11 +1,9 @@
 package GameMechanics;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,6 +13,8 @@ public class Database
 {
 	ArrayList<String> namelist = new ArrayList<String>();
 	ArrayList<String> scorelist = new ArrayList<String>();
+	private int newscore;
+	private int index;
 	
 	public Database(){
 		try {
@@ -48,28 +48,14 @@ public class Database
 			e.printStackTrace();
 		}	
 		
-		sorting();
 	}
 	
-	//store new score & new name into database
-	public void StoretoDatabase(Animal frog) {
+	public void StoretoDatabase(int points) {
+		//store new score & new player into database
 		
-		try(FileWriter fw = new FileWriter("HighScoreDatabase.txt", true);
-	     BufferedWriter bw = new BufferedWriter(fw);
-				
-	     PrintWriter out = new PrintWriter(bw))
-		{		
-			out.print(frog.getPoints()+"\n");
-		} catch (IOException e) {}
-		
-		try(FileWriter fw = new FileWriter("NameDatabase.txt", true);
-				BufferedWriter bw = new BufferedWriter(fw);
-				
-				PrintWriter out = new PrintWriter(bw))
-				{
-				    out.print(EnterName.NewName+"\n");
-				    
-				} catch (IOException e) {}
+		namelist.add(EnterName.NewName);
+		scorelist.add(Integer.toString(points));
+		sorting();
 	}
 	
 	private void sorting() {
@@ -91,6 +77,49 @@ public class Database
 					namelist.set(i, tmpB);
 				}
 			}
+		}
+		
+		updateDatabase();
+	}
+	
+	private void updateDatabase() {
+		//update the database after sorting
+		 try {
+		      FileWriter namedbWriter = new FileWriter("NameDatabase.txt");
+		      FileWriter scoredbWriter = new FileWriter("HighScoreDatabase.txt");
+		      
+		      for (int i = 0; i < namelist.size(); i++) {
+		    	  namedbWriter.write(namelist.get(i)+"\n");
+		    	  scoredbWriter.write(scorelist.get(i)+"\n");
+		      }
+		      namedbWriter.close();
+		      scoredbWriter.close();
+		      System.out.println("Successfully wrote to the file.");
+		      
+		    } catch (IOException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+	}
+
+	public boolean checkDuplicateName() {
+		for (int i = 0; i < namelist.size(); i++) {
+			if (namelist.get(i).equals(EnterName.NewName)) {
+				index=i;
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void changeData(int score) {
+		newscore=score;
+		
+		if (checkDuplicateName()==true) {
+			newscore += Integer.parseInt(scorelist.get(index));
+			System.out.println("\n"+newscore);
+			scorelist.set(index, Integer.toString(newscore));
+			sorting();
 		}
 	}
 	
