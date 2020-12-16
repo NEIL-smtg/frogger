@@ -20,9 +20,4 @@ public class Obstacle extends Actor {
 		setY(ypos);
 		speed = s;
 	}
-
-	
-
-	 
-
 }
