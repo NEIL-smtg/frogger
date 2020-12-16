@@ -303,7 +303,7 @@ public class GameView{
 					
 					if (option.get()==ButtonType.OK) {
 						screen.stop();
-						//background.stopMusic();
+						screen.stopMusic();
 						Menu.mainStage.show();
 						gameStage.close();
 					
@@ -349,7 +349,7 @@ public class GameView{
 		    		screen.getChildren().removeAll(time);
 					stop();
 					screen.stop();
-					//background.stopMusic();
+					screen.stopMusic();
 					GameOver();
 				}
 		    	
@@ -368,8 +368,7 @@ public class GameView{
 		    	}
 		    	if (frog.getStop()) {
 		    		System.out.print("STOPP:");
-		    		
-		    		//background.stopMusic();
+		    		screen.stopMusic();
 		    		stop();
 		    		screen.stop();
 		    		timeline.stop();
@@ -419,7 +418,7 @@ public class GameView{
 	}
 	
 	public void start() {
-		//background.playMusic();
+		screen.playMusic();
 		createTimer();
 		timer.start();
 	}
