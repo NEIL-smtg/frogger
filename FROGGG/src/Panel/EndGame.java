@@ -18,9 +18,10 @@ import javafx.scene.input.KeyEvent;
 public class EndGame {
 	BackgroundImage ggPanel;
 	Database db= new Database();
+	Animal frog;
 	
 	public EndGame(Animal frog){
-		//db.StoretoDatabase(frog);
+		this.frog=frog;
 	}
 	
 	//create black panel when game end
@@ -53,9 +54,11 @@ public class EndGame {
 	}
 	
 	public Text gameWonText(Animal frog) {
+		int score = CurrentScore(frog);
+		
 		//label
 		Text t = new Text() ;
-		t.setText("GAME  WON !\nYOUR   HIGH   SCORE   IS  "+frog.getPoints()+"\nHIGHEST   POSSIBLE  SCORE   IS "+ db.getScoreDatabase().get(0));
+		t.setText("GAME  WON !\nYOUR   HIGH   SCORE   IS  "+score+"\nHIGHEST   POSSIBLE  SCORE   IS "+ db.getScoreDatabase().get(0));
 		t.setLayoutX(140);
 		t.setLayoutY(230);
 		t.getTextAlignment();
@@ -63,6 +66,20 @@ public class EndGame {
 		s.fontsetup(t, 20, Color.YELLOW);
 
 		return t;
+	}
+	
+	private int CurrentScore(Animal frog) {
+		//return current player highest score
+		int score;
+		
+		if (db.getindex() ==0) {
+			score=frog.getPoints();
+			return score;
+		}
+		else {
+			score = Integer.parseInt(db.getScoreDatabase().get(db.getindex()));
+			return score;
+		}
 	}
 	
 	public Text escText() {
@@ -96,14 +113,16 @@ public class EndGame {
 	
 	
 	public Text gameoverText() {
+		int score = CurrentScore(frog);
 		//label
 		Text t = new Text() ;
-		t.setText("GAME  OVER");
-		t.setLayoutX(220);
-		t.setLayoutY(270);
-		
+		t.setText("GAME  OVER !\nYOUR   HIGH   SCORE   IS  "+score+"\nHIGHEST   POSSIBLE  SCORE   IS "+ db.getScoreDatabase().get(0));
+		t.setLayoutX(140);
+		t.setLayoutY(230);
+		t.getTextAlignment();
 		ScreenDesign s = new ScreenDesign();
-		s.fontsetup(t, 35, Color.YELLOW);
+		s.fontsetup(t, 20, Color.YELLOW);
+		
 		
 		return t;
 	}

@@ -123,6 +123,13 @@ public class Database
 		}
 	}
 	
+	public int getindex() {
+		if(checkDuplicateName()==true) {
+			return index;
+		}
+		return 0;
+	}
+	
 	//return data in name database
 	public ArrayList<String> getNameDatabase() {
 		

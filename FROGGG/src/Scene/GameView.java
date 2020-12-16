@@ -434,14 +434,13 @@ public class GameView{
 		int shift = 25;	
 
 		int d =n ;
-		while (n> 0) {
+		if (n> 0) {
 			int k;
 			
 			if (d >= 100) {
 				k = d/100;
 				screen.add(new Digit(k, 30, 250 , 33));
 				d -= k*100;
-				n=d;
 			}
 			else {
 				screen.add(new Digit(0, 30, 250 , 33));
@@ -449,10 +448,11 @@ public class GameView{
 			
 			if(d < 100) {
 				k= d/10;
-				screen.add(new Digit(k, 30, 250 +shift, 33));		
-				d -= k*10;
-				n=0;	
-			}	
+				screen.add(new Digit(k, 30, 250 +shift, 33));
+				d -= k*10;	
+				screen.add(new Digit(d, 30, 250 +2*shift, 33));
+			}
+			
 		}		
 	}		
 }
