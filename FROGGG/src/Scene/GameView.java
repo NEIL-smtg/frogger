@@ -58,15 +58,13 @@ public class GameView{
 	Database db = new Database();
 	
 	public GameView(int level) {
-		this.level=level;
-		
+		this.level=level;	
 		SpeedDecider(level);
 		screen = new MyStage();
 		ScreenSetup();
 		game();
 		showLifes();
 		showTime();
-		showText(level);
 		exitGame();
 	}
 	
@@ -98,8 +96,28 @@ public class GameView{
 		blackborder.setLayoutX(0);
 		blackborder.setLayoutY(470);
 		
+		Text lvl = new Text();
+		lvl.setText("LEVEL "+level);
+		lvl.setX(20);
+		lvl.setY(50);
+		fontsetup(lvl,35,Color.YELLOW);
+		
+		Text timetext = new Text();
+		timetext.setText("TIME ");
+		timetext.setX(180);
+		timetext.setY(775);
+		fontsetup(timetext,18,Color.GREENYELLOW);
+		
+		Text highscore = new Text();
+		highscore.setText("HI SCORE");
+		highscore.setX(220);
+		highscore.setY(35);
+		fontsetup(highscore , 20 , Color.MEDIUMVIOLETRED);
+		
 		screen.getChildren().addAll(darkblue,blackborder);
 		screen.getChildren().addAll(purplesafezone);
+		screen.getChildren().addAll(lvl,timetext,highscore);	
+		
 
 	}
 	
@@ -119,7 +137,7 @@ public class GameView{
 		//BackgroundImage froggerback = new BackgroundImage("file:src/p4_group_8_repo/Screen Shot 2017-05-29 at 10.02.14 PM.png");
 		//background.add(froggerback);
 		
-		screen.add(new Digit(0, 30, 280, 25));
+		screen.add(new Digit(0, 30, 250+50, 33));
 		
 		if (level<=3) {
 			screen.add(new End(141,86));
@@ -253,21 +271,6 @@ public class GameView{
 	
 	}
 	
-	private void showText(int level) {
-		Text lvl = new Text();
-		lvl.setText("LEVEL "+level);
-		lvl.setX(30);
-		lvl.setY(50);
-		fontsetup(lvl,35,Color.GREENYELLOW);
-		
-		Text timetext = new Text();
-		timetext.setText("TIME ");
-		timetext.setX(180);
-		timetext.setY(775);
-		fontsetup(timetext,35,Color.GREENYELLOW);
-		
-		screen.getChildren().addAll(lvl,timetext);
-	}
 	
 	private void fontsetup(Text text, int size , Color c) {
 		ScreenDesign s = new ScreenDesign();
@@ -427,15 +430,32 @@ public class GameView{
 		timer.stop();
 	}
 	
-	public void setNumber(int n) {
-		int shift = 0;
-		while (n > 0) {
-			  int d = n / 10;
-			  int k = n - d * 10;
-			  n = d;
-			  screen.add(new Digit(k, 30, 280 - shift, 25));
-			  shift+=20;
-		}
-	}
+	public void setNumber(int n) {  
+		int shift = 25;	
+
+		int d =n ;
+		while (n> 0) {
+			int k;
+			
+			if (d >= 100) {
+				k = d/100;
+				screen.add(new Digit(k, 30, 250 , 33));
+				d -= k*100;
+				n=d;
+			}
+			else {
+				screen.add(new Digit(0, 30, 250 , 33));
+			}
+			
+			if(d < 100) {
+				k= d/10;
+				screen.add(new Digit(k, 30, 250 +shift, 33));		
+				d -= k*10;
+				n=0;	
+			}	
+		}		
+	}		
 }
+	
+
 
