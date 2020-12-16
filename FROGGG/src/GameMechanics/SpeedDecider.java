@@ -10,7 +10,7 @@ public class SpeedDecider {
 			speed=level;
 		}
 		else {
-			speed=(int) (1+level/9);
+			speed=(int) (1+level/3);
 		}	
 	}
 	

@@ -25,6 +25,7 @@ public class MovingObjects{
 		movingObstacle();
 		movingAssits();
 	}
+	
 
 	private void movingObstacle() {
 		
@@ -40,8 +41,8 @@ public class MovingObjects{
 		}
 				
 		//trucklanes		
-		trucklane2[0]=new Obstacle("file:src/MovingObjectResources/truck/truck2"+"Right.png", 100, gridY-y, (int) (1.11*speed), 200, 200);
-		trucklane2[1]=new Obstacle("file:src/MovingObjectResources/truck/truck1"+"Right.png", 430, gridY-y, (int) (1.11*speed), 120, 120);
+		trucklane2[0]=new Obstacle("file:src/MovingObjectResources/truck/truck2"+"Right.png", 100, gridY-y,  (2*speed), 200, 200);
+		trucklane2[1]=new Obstacle("file:src/MovingObjectResources/truck/truck1"+"Right.png", 430, gridY-y,  (2*speed), 120, 120);
 				
 		trucklane3[0]=new Obstacle("file:src/MovingObjectResources/truck/truck2"+"left.png", 200, gridY-2*y, (int) (-1.22*speed), 200, 200);
 		trucklane3[1]=new Obstacle("file:src/MovingObjectResources/truck/truck1"+"left.png", 530 , gridY-2*y, (int) (-1.22*speed), 120, 120);
