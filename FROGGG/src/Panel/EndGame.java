@@ -113,15 +113,8 @@ public class EndGame {
 	
 	
 	public Text gameoverText() {
+		String highscore = whenDatabaseisempty();
 		int score = CurrentScore(frog);
-		String highscore;
-		
-		if (db.getScoreDatabase().size()==0) {
-			highscore = Integer.toString(score);
-		}
-		else {
-			highscore = db.getScoreDatabase().get(0);
-		}
 		
 		//label
 		Text t = new Text() ;
@@ -134,6 +127,20 @@ public class EndGame {
 		
 		
 		return t;
+	}
+	
+	private String whenDatabaseisempty() {
+		
+		int score = CurrentScore(frog);
+		String highscore;
+		if (db.getScoreDatabase().size()==0) {
+			highscore = Integer.toString(score);
+		}
+		else {
+			highscore = db.getScoreDatabase().get(0);
+		}
+		
+		return highscore;
 	}
 	
 	//when space is pressed
