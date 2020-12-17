@@ -31,14 +31,14 @@ public class Animal extends Actor {
 	private int gethit;
 	public int lifes=4;
 	private int speed;
-	private int level;
+	public int level;
 	ArrayList<End> inter = new ArrayList<End>();
 	SoundEffect effect = new SoundEffect();
 
 	public Animal(String imageLink , int speed , int level) {
 		this.speed=speed;
 		this.level=level;
-		ScoreGenerator sg = new ScoreGenerator(level);
+		ScoreGenerator sg = new ScoreGenerator();
 		
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
 		setX(300);
@@ -119,7 +119,7 @@ public class Animal extends Actor {
 					if (getY() < w) {
 						changeScore = true;
 						w = getY();
-						points+=10+sg.getscore();
+						points+=10+sg.bonusScore(level);
 					}
 	                move(0, -movement);
 	                setImage(imgW1);
@@ -276,8 +276,9 @@ public class Animal extends Actor {
 					gethit=1;
 				}
 			}
-			ScoreGenerator sg = new ScoreGenerator(level);
-			points+=50+sg.getscore();
+			ScoreGenerator sg = new ScoreGenerator();
+			sg.bonusScore(level);
+			points+=50+sg.bonusScore(level);
 			changeScore = true;
 			w=800;
 			getIntersectingObjects(End.class).get(0).setEnd();

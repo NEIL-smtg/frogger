@@ -68,7 +68,7 @@ public class EndGame {
 		return t;
 	}
 	
-	private int CurrentScore(Animal frog) {
+	public int CurrentScore(Animal frog) {
 		//return current player highest score
 		int score;
 		
@@ -129,7 +129,7 @@ public class EndGame {
 		return t;
 	}
 	
-	private String whenDatabaseisempty() {
+	public String whenDatabaseisempty() {
 		
 		int score = CurrentScore(frog);
 		String highscore;
