@@ -1,7 +1,8 @@
 package Scene;
 
 import java.util.ArrayList;
-import GameMechanics.Database;
+
+import Database.Database;
 import GameMechanics.MenuButton;
 import GameMechanics.MyStage;
 import ScreenDesign.BackgroundImage;

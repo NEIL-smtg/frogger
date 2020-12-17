@@ -2,6 +2,7 @@ package Scene;
 
 import java.util.Optional;
 
+import Database.Database;
 import GameAnimations.Digit;
 import GameAnimations.End;
 import GameAnimations.Log;
@@ -14,7 +15,6 @@ import GameMechanics.MovingObjects;
 import GameMechanics.MyStage;
 import GameMechanics.SoundEffect;
 import GameMechanics.SpeedDecider;
-import GameMechanics.Database;
 import GameMechanics.Time;
 import Panel.EndGame;
 import ScreenDesign.*;

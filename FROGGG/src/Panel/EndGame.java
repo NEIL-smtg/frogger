@@ -1,7 +1,7 @@
 package Panel;
 
+import Database.Database;
 import GameMechanics.Animal;
-import GameMechanics.Database;
 import Scene.Menu;
 import ScreenDesign.BackgroundImage;
 import ScreenDesign.ScreenDesign;
@@ -114,9 +114,18 @@ public class EndGame {
 	
 	public Text gameoverText() {
 		int score = CurrentScore(frog);
+		String highscore;
+		
+		if (db.getScoreDatabase().size()==0) {
+			highscore = Integer.toString(score);
+		}
+		else {
+			highscore = db.getScoreDatabase().get(0);
+		}
+		
 		//label
 		Text t = new Text() ;
-		t.setText("GAME  OVER !\nYOUR   HIGH   SCORE   IS  "+score+"\nHIGHEST   POSSIBLE  SCORE   IS "+ db.getScoreDatabase().get(0));
+		t.setText("GAME  OVER !\nYOUR   HIGH   SCORE   IS  "+score+"\nHIGHEST   POSSIBLE  SCORE   IS "+ highscore);
 		t.setLayoutX(140);
 		t.setLayoutY(230);
 		t.getTextAlignment();
