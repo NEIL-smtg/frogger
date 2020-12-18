@@ -56,14 +56,26 @@ public class Help {
 	
 	private void gameInfo() {
 		Text info = new Text();
-		info.setText("Please   help   a   frog   name\nFrogger   reach   safety\nhome   on   the   top   of   the   screen\n"
-				+ "You   may   use   arrow   keys   or\nWASD   key   to   move   Frogger !\n\n"
-				+ "Here   are   the   things   you   need\nto   look   out !\nFrogger   has   only   4   lives !\nyou   have   to\n"
-				+ "avoids   car   on   the   freeway\nyou   can   jump   on   log\nor   turtles   in   river   to\nreach   the   top !\n"
-				+ "Speed   will   increases   as   the\nlevel   increases");
+		info.setText("The     only     player     control\n"
+				+ "is     the     arrow     keys    on    your\n"
+				+ "keyboard   or    W  A  S  D  \n"
+				+ "to   navigate  the   frog\n"
+				+ "each   push   in   a   direction\n"
+				+ "causes  the   frog   to   hop\n"
+				+ "\nonce  in   that   direction !\n"
+				+ "On    the    bottom    half\n"
+				+ "of  the  screen\n"
+				+ "the  player  must  successfully"
+				+ "\nguide   the   frog   between\n"
+				+ " opposing   lanes   of    cars\n"
+				+ "and   other  vehicles"
+				+ "\nto  avoid   becoming  roadkil\n"
+				+ "\nthe  way  to  win   is  simply\n"
+				+ "navigate   all  of  the   \n"
+				+ "frogs   home");
 		info.setX(60);
-		info.setY(150);
-		fontsetup(info,35,Color.YELLOW);
+		info.setY(120);
+		fontsetup(info,25,Color.LIGHTGOLDENRODYELLOW);
 		screen.getChildren().add(info);
 	}
 	
