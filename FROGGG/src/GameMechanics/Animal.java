@@ -2,6 +2,7 @@ package GameMechanics;
 
 import java.util.ArrayList;
 
+import GameAnimations.Crocodile;
 import GameAnimations.End;
 import GameAnimations.Log;
 import GameAnimations.Obstacle;
@@ -227,7 +228,7 @@ public class Animal extends Actor {
 		if (getX()>600) {
 			move(-movement*2, 0);
 		}
-		if (getIntersectingObjects(Obstacle.class).size() >= 1) {
+		if (getIntersectingObjects(Obstacle.class).size() >= 1 ) {
 			carDeath = true;
 			if (gethit==0) {
 				effect.squash();
@@ -269,24 +270,35 @@ public class Animal extends Actor {
 		}
 		else if (getIntersectingObjects(End.class).size() >= 1) {
 			inter = (ArrayList<End>) getIntersectingObjects(End.class);
-			if (getIntersectingObjects(End.class).get(0).isActivated()) {
+			if (getIntersectingObjects(End.class).get(0).isActivated() ) {
 				end--;
 				points-=50;
 				if (gethit==0) {
 					gethit=1;
 				}
 			}
-			ScoreGenerator sg = new ScoreGenerator();
-			sg.bonusScore(level);
-			points+=50+sg.bonusScore(level);
-			changeScore = true;
-			w=800;
-			getIntersectingObjects(End.class).get(0).setEnd();
-			end++;
-			setX(300);
-			setY(679.8+movement);
+			if( getIntersectingObjects(Crocodile.class).size() >= 1) {
+				points-=70;
+				effect.squash();
+				lifes--;
+				setX(300);
+				setY(679.8+movement);
+			}
+			else
+			{
+				ScoreGenerator sg = new ScoreGenerator();
+				sg.bonusScore(level);
+				points+=50+sg.bonusScore(level);
+				changeScore = true;
+				w=800;
+				getIntersectingObjects(End.class).get(0).setEnd();
+				end++;
+				setX(300);
+				setY(679.8+movement);
+			}
 			
 		}
+		
 		else if (getY()<413){
 			waterDeath = true;
 			if (gethit==0) {
