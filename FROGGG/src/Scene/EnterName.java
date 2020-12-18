@@ -48,6 +48,7 @@ public class EnterName {
 		
 		//create background
 		screen.setBackground(new Background(design.paint()));
+		
 	}
 	
 	private void createButton() {
@@ -59,7 +60,7 @@ public class EnterName {
 		
 		enter = new MenuButton("C H O O S E     LEVELS");
 		enter.setLayoutX(140);
-		enter.setLayoutY(280);
+		enter.setLayoutY(400);
 		enter.setPrefWidth(300);
 		
 		
@@ -99,14 +100,16 @@ public class EnterName {
 	private void createtextfield()
 	{
 		Text name = new Text();
-		name.setText("NAME ");
-		name.setX(140);
-		name.setY(225);
-		fontsetup(name,35,Color.RED);
+		name.setText("ENTER  YOUR  NAME ");
+		name.setX(160);
+		name.setY(255);
+		fontsetup(name,35,Color.LIGHTGOLDENRODYELLOW);
 		
 		nameField = new TextField();
-		nameField.setLayoutX(250);
-		nameField.setLayoutY(200);
+		nameField.setLayoutX(120);
+		nameField.setLayoutY(280);
+		nameField.setPrefSize(350, 50);
+		
 		
 		screen.getChildren().addAll(name,nameField);
 	}
