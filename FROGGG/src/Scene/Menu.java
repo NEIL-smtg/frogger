@@ -3,7 +3,7 @@ package Scene;
 import java.util.ArrayList;
 import java.util.List;
 
-import GameMechanics.MenuButton;
+import GameMechanics.ButtonStyle;
 import GameMechanics.MyStage;
 import ScreenDesign.BackgroundImage;
 import ScreenDesign.ScreenDesign;
@@ -21,11 +21,11 @@ public class Menu{
 	private Scene mainScene;
 	public static Stage mainStage;
 	ScreenDesign design = new ScreenDesign();
-	List<MenuButton> mButtons;
-	MenuButton startButton;
-	MenuButton exitButton;
-	MenuButton helpButton;
-	MenuButton highscoreButton;
+	List<ButtonStyle> mButtons;
+	ButtonStyle startButton;
+	ButtonStyle exitButton;
+	ButtonStyle helpButton;
+	ButtonStyle highscoreButton;
 	BackgroundImage logo;
 	
 	public Menu() {
@@ -52,7 +52,7 @@ public class Menu{
 		return mainStage;
 	}
 	
-	private void addMenuButton(MenuButton button) {
+	private void addMenuButton(ButtonStyle button) {
 		//set position of each buttons
 		//changed y position of buttons everytime add button into screen
 		
@@ -66,16 +66,16 @@ public class Menu{
 		//this method is creating buttons in menu
 		// then,  add the buttons into the list
 		
-		startButton = new MenuButton("P L A Y");
+		startButton = new ButtonStyle("P L A Y");
 		addMenuButton(startButton);
 		
-		highscoreButton = new MenuButton("HIGH  SCORES");
+		highscoreButton = new ButtonStyle("HIGH  SCORES");
 		addMenuButton(highscoreButton);
 		
-		helpButton = new MenuButton("H E L P");
+		helpButton = new ButtonStyle("H E L P");
 		addMenuButton(helpButton);
 		
-		exitButton = new MenuButton("E X I T");
+		exitButton = new ButtonStyle("E X I T");
 		addMenuButton(exitButton);
 				
 	}

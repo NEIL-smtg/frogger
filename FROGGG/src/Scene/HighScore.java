@@ -3,7 +3,7 @@ package Scene;
 import java.util.ArrayList;
 
 import Database.Database;
-import GameMechanics.MenuButton;
+import GameMechanics.ButtonStyle;
 import GameMechanics.MyStage;
 import ScreenDesign.BackgroundImage;
 import ScreenDesign.ScreenDesign;
@@ -59,7 +59,7 @@ public class HighScore {
 		name.setLayoutX(200);
 		name.setLayoutY(180);
 		
-		MenuButton button = new MenuButton("B A C K");
+		ButtonStyle button = new ButtonStyle("B A C K");
 		button.setLayoutX(20);
 		button.setLayoutY(20);
 		button.setPrefWidth(150);

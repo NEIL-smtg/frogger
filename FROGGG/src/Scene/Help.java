@@ -1,6 +1,6 @@
 package Scene;
 
-import GameMechanics.MenuButton;
+import GameMechanics.ButtonStyle;
 import GameMechanics.MyStage;
 import ScreenDesign.ScreenDesign;
 import javafx.event.ActionEvent;
@@ -38,7 +38,7 @@ public class Help {
 	}
 	
 	private void createbutton() {
-		MenuButton back = new MenuButton("B  A  C  K");
+		ButtonStyle back = new ButtonStyle("B  A  C  K");
 		back.setLayoutX(20);
 		back.setLayoutY(20);
 		back.setPrefWidth(150);

@@ -2,7 +2,7 @@ package Scene;
 
 import java.util.ArrayList;
 
-import GameMechanics.MenuButton;
+import GameMechanics.ButtonStyle;
 import GameMechanics.MyStage;
 import ScreenDesign.ScreenDesign;
 import javafx.event.ActionEvent;
@@ -25,7 +25,7 @@ public class ChooseLevels {
 	private int pressedCnt=0;
 	ScreenDesign design = new ScreenDesign();
 	private int[] levelindex = new int[10];
-	MenuButton play,back;
+	ButtonStyle play,back;
 	
 	public ChooseLevels() {
 		ScreenSetup();
@@ -70,13 +70,13 @@ public class ChooseLevels {
 		}
 		
 		
-		play = new MenuButton("P L A Y");
+		play = new ButtonStyle("P L A Y");
 		play.setLayoutX(400);
 		play.setLayoutY(20);
 		play.setPrefWidth(150);
 		
 		
-		back = new MenuButton("B A C K");
+		back = new ButtonStyle("B A C K");
 		back.setLayoutX(20);
 		back.setLayoutY(20);
 		back.setPrefWidth(150);

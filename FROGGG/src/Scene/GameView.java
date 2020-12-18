@@ -11,7 +11,7 @@ import GameAnimations.Obstacle;
 import GameAnimations.Turtle;
 import GameAnimations.WetTurtle;
 import GameMechanics.Animal;
-import GameMechanics.MenuButton;
+import GameMechanics.ButtonStyle;
 import GameMechanics.MovingObjects;
 import GameMechanics.MyStage;
 import GameMechanics.SoundEffect;
@@ -293,7 +293,7 @@ public class GameView{
 	}
 
 	private void exitGame() { 
-		MenuButton exit = new MenuButton("EXIT");
+		ButtonStyle exit = new ButtonStyle("EXIT");
 		exit.setLayoutX(450);
 		exit.setLayoutY(10);
 		exit.setPrefHeight(50);

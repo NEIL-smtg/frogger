@@ -3,7 +3,7 @@ package Scene;
 import java.util.ArrayList;
 
 import Database.Database;
-import GameMechanics.MenuButton;
+import GameMechanics.ButtonStyle;
 import GameMechanics.MyStage;
 import ScreenDesign.ScreenDesign;
 import javafx.event.ActionEvent;
@@ -25,7 +25,7 @@ public class EnterName {
 	public static String NewName;
 	private TextField nameField;
 	ScreenDesign design = new ScreenDesign();
-	MenuButton back,enter;
+	ButtonStyle back,enter;
 	Database db = new Database();
 	
 	EnterName()
@@ -52,13 +52,13 @@ public class EnterName {
 	}
 	
 	private void createButton() {
-		back = new MenuButton("B A C K ");
+		back = new ButtonStyle("B A C K ");
 		back.setLayoutX(20);
 		back.setLayoutY(20);
 		back.setPrefWidth(150);
 		
 		
-		enter = new MenuButton("C H O O S E     LEVELS");
+		enter = new ButtonStyle("C H O O S E     LEVELS");
 		enter.setLayoutX(140);
 		enter.setLayoutY(400);
 		enter.setPrefWidth(300);
