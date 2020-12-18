@@ -3,6 +3,7 @@ package Scene;
 import java.util.Optional;
 
 import Database.Database;
+import GameAnimations.Crocodile;
 import GameAnimations.Digit;
 import GameAnimations.End;
 import GameAnimations.Log;
@@ -81,7 +82,7 @@ public class GameView{
 		gameStage = new Stage();
 		gameStage.setScene(gameScene);
 		
-		BackgroundImage[] purplesafezone = new BackgroundImage[2];
+		BackgroundImage[] purplesafezone = new BackgroundImage[3];
 		BackgroundImage blackborder = new BackgroundImage("resources/black border.jpg");
 		BackgroundImage darkblue = new BackgroundImage("resources/deepblue.jpg");
 		
@@ -90,10 +91,14 @@ public class GameView{
 		
 		purplesafezone[0]=new BackgroundImage("resources/purple border.jpg");
 		purplesafezone[1]=new BackgroundImage("resources/purple border.jpg");
+		purplesafezone[2]=new BackgroundImage("resources/purple border.jpg");
 		purplesafezone[0].setLayoutX(0);
 		purplesafezone[0].setLayoutY(435);
 		purplesafezone[1].setLayoutX(0);
 		purplesafezone[1].setLayoutY(700);
+		purplesafezone[2].setLayoutX(0);
+		purplesafezone[2].setLayoutY(80);
+		purplesafezone[2].setFitHeight(65);;
 		
 		blackborder.setLayoutX(0);
 		blackborder.setLayoutY(470);
@@ -125,7 +130,7 @@ public class GameView{
 	
 	private void game(){
 		
-		MovingObjects o = new MovingObjects(speed);
+		MovingObjects o = new MovingObjects(speed );
 		Obstacle[] carlane1=o.getlane1();
 		Obstacle[] carlane4=o.getlane4();
 		Obstacle[] trucklane2= o.getlane2();
@@ -150,7 +155,7 @@ public class GameView{
 			screen.add(new End(269,86));
 			screen.add(new End(420,86));
 		}
-		else if (level>=7 && level<=8) {
+		else if (level==7 || level==8) {
 			screen.add(new End(90,86));
 			screen.add(new End(218,86));
 			screen.add(new End(346,86));
@@ -174,14 +179,19 @@ public class GameView{
 		screen.getChildren().addAll(loglane8);
 		screen.getChildren().addAll(turtlelane9);	
 		screen.getChildren().addAll(loglane10);
-		
+			
 		frog = new Animal("file:src/MovingObjectResources/frog/froggerUp.png",speed,level);
 		screen.add(frog);
 				
+		if (level >=4) {
+			screen.add(new Crocodile(level));
+		}
+		
 		screen.start();
 		start();
 	}
 	
+
 	private void showLifes() {
 		//show frog lifes on screen
 		for ( i = 0; i < frog.lifes; i++) {

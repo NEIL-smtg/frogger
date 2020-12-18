@@ -22,6 +22,7 @@ public class End extends Actor{
 		activated = true;
 	}
 	
+	
 	public boolean isActivated() {
 		return activated;
 	}

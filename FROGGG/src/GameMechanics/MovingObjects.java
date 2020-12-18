@@ -1,5 +1,6 @@
 package GameMechanics;
 
+import GameAnimations.Crocodile;
 import GameAnimations.Log;
 import GameAnimations.Obstacle;
 import GameAnimations.Turtle;
@@ -18,14 +19,15 @@ public class MovingObjects{
 	Log[] loglane7 = new Log[2];
 	Log[] loglane8 = new Log[3];
 	Log[] loglane10 = new Log[2];
+	Crocodile[] lastlane ;
+	Crocodile cro;
 	
-	
-	public MovingObjects(int speed) {	
+	public MovingObjects(int speed ) {	
 		this.speed=speed;
 		movingObstacle();
 		movingAssits();
+		
 	}
-	
 
 	private void movingObstacle() {
 		
@@ -102,6 +104,5 @@ public class MovingObjects{
 	public Log[] getlane10() {
 		return loglane10;
 	}
-	
-	
+
 }

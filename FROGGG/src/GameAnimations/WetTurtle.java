@@ -49,7 +49,6 @@ public class WetTurtle extends Actor{
 		setImage(turtle2);
 	}
 	
-	public WetTurtle(){}
 	
 	public boolean isSunk() {
 		return sunk;
