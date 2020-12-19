@@ -4,10 +4,10 @@ Here are the features that i have addded to the game:
 
 MENU:
 A menu consits of 4 buttons that leads player to different pages.
-PLAY - To play the game
-HIGH SCORE - To view the permanent scoreboard
-HELP - Consists of information that will instruct how should player play the game
-EXIT - Exit the game
+PLAY - To play the game.
+HIGH SCORE - To view the permanent scoreboard.
+HELP - Consists of information that will instruct how should player play the game.
+EXIT - Exit the game.
 
 ENTER NAME:
 After you hit play , player will be asked to key in their name , the player name and the score that he/she get in the game will be stored in the database.
